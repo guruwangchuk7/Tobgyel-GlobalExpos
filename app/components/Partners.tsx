@@ -20,7 +20,7 @@ export default function Partners() {
     },
     {
       name: "Bhutan Chamber of Commerce & Industry",
-      image: "/partners/BCCI_Bhutan_Chamber_of_Commerce_Industry.png",
+      image: "/partners/department_of_chamber.jpg",
     },
   ];
 
