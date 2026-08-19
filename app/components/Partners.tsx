@@ -25,15 +25,15 @@ export default function Partners() {
   ];
 
   const corpPartners = [
-    { name: "TATA", image: "/partners/Tata.svg" },
-    { name: "DHI", image: "/partners/dhi.png" },
-    { name: "Bank of Bhutan", image: "/partners/Bank_of_Bhutan_highres.webp" },
-    { name: "Drukair", image: "/partners/Drukair.png" },
-    { name: "BOB", image: "/partners/Bank_of_Bhutan_highres.webp" },
+    { name: "TATA", image: "/partners/Tata.svg", scale: "scale-[1.6] sm:scale-[1.8]" },
+    { name: "DHI", image: "/partners/dhi.png", scale: "scale-100" },
+    { name: "Bank of Bhutan", image: "/partners/Bank_of_Bhutan_highres.webp", scale: "scale-100" },
+    { name: "Drukair", image: "/partners/Drukair.png", scale: "scale-[1.8] sm:scale-[2.0]" },
+    { name: "BOB", image: "/partners/Bank_of_Bhutan_highres.webp", scale: "scale-100" },
   ];
 
   return (
-    <section id="partners" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200">
+    <section id="partners" className="py-16 sm:py-20 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Section Header */}
@@ -52,13 +52,13 @@ export default function Partners() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
             {govtPartners.map((p, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center space-y-3 group cursor-pointer">
-                {/* Circular Seal / Image */}
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white border-2 border-slate-200 shadow-md flex items-center justify-center p-2 group-hover:border-[#EAA500] transition-colors overflow-hidden">
+              <div key={idx} className="flex flex-col items-center text-center space-y-2 group cursor-pointer w-full">
+                {/* Compact Logo Image Container */}
+                <div className="w-full h-16 sm:h-20 lg:h-24 flex items-center justify-center p-1 group-hover:scale-105 transition-transform">
                   <img 
                     src={p.image} 
                     alt={p.name} 
-                    className="w-full h-full object-contain rounded-full"
+                    className="max-h-full max-w-full object-contain mix-blend-multiply"
                   />
                 </div>
 
@@ -83,12 +83,12 @@ export default function Partners() {
             {corpPartners.map((cp, idx) => (
               <div 
                 key={idx} 
-                className="w-full h-20 sm:h-24 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center justify-center p-4 hover:border-[#EAA500] hover:shadow-md transition-all cursor-pointer overflow-hidden"
+                className="w-full h-14 sm:h-16 lg:h-20 flex items-center justify-center p-1 hover:scale-105 transition-transform cursor-pointer"
               >
                 <img 
                   src={cp.image} 
                   alt={cp.name} 
-                  className="max-h-12 sm:max-h-14 w-auto object-contain"
+                  className={`max-h-10 sm:max-h-12 lg:max-h-14 w-auto object-contain mix-blend-multiply transition-transform ${cp.scale}`}
                 />
               </div>
             ))}
