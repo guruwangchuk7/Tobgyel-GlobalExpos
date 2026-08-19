@@ -121,10 +121,6 @@ export default function RegisterVisitorPage() {
             
             {/* Header */}
             <div className="border-b border-slate-800 pb-6 space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/60 text-emerald-400 text-xs font-extrabold uppercase tracking-widest">
-                <Users className="w-3.5 h-3.5" />
-                <span>Visitor Registration Pass</span>
-              </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight font-sans">
                 Free Visitor Entry Registration
               </h1>

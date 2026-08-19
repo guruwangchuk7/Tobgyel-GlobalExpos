@@ -46,110 +46,11 @@ const STORAGE_KEYS = {
   VISITORS: "tobgyel_visitors",
 };
 
-// Seed Data
-const initialExhibitors: ExhibitorSubmission[] = [
-  {
-    id: "exh-101",
-    companyName: "Druk Green Tech Solutions",
-    contactPerson: "Sonam Dorji",
-    email: "sonam@drukgreentech.bt",
-    phone: "+975 17 123 456",
-    sector: "Renewable Energy",
-    boothSize: "Large (6m x 6m)",
-    description: "Showcasing Himalayan solar and hydro micro-turbines.",
-    status: "Approved",
-    submittedAt: "2024-05-10 10:30 AM",
-  },
-  {
-    id: "exh-102",
-    companyName: "Himalayan Herbal Craft",
-    contactPerson: "Pema Lhamo",
-    email: "info@himalayanherbal.bt",
-    phone: "+975 77 987 654",
-    sector: "Organic & Agriculture",
-    boothSize: "Standard (3m x 3m)",
-    description: "Premium Cordyceps and organic Bhutanese herbal teas.",
-    status: "Approved",
-    submittedAt: "2024-05-12 02:15 PM",
-  },
-  {
-    id: "exh-103",
-    companyName: "Tata Motors Commercial",
-    contactPerson: "Rajesh Kumar",
-    email: "rajesh.k@tata.com",
-    phone: "+91 98765 43210",
-    sector: "Automotive & Logistics",
-    boothSize: "Premium Island (10m x 10m)",
-    description: "EV electric commercial trucks for hill terrain transport.",
-    status: "Pending",
-    submittedAt: "2024-05-15 09:45 AM",
-  },
-];
-
-const initialSponsors: SponsorSubmission[] = [
-  {
-    id: "sp-201",
-    organizationName: "Druk Holding & Investments (DHI)",
-    contactPerson: "Tashi Wangchuk",
-    email: "tashi.w@dhi.bt",
-    phone: "+975 2 321 999",
-    tier: "Platinum ($10,000)",
-    budget: "$15,000",
-    message: "Supporting national economic development and innovation technology.",
-    status: "Approved",
-    submittedAt: "2024-05-08 11:00 AM",
-  },
-  {
-    id: "sp-202",
-    organizationName: "Bank of Bhutan",
-    contactPerson: "Karma Tshering",
-    email: "sponsorships@bob.bt",
-    phone: "+975 2 333 111",
-    tier: "Gold ($5,000)",
-    budget: "$8,000",
-    message: "Exclusive banking and fintech partner for international expos.",
-    status: "Approved",
-    submittedAt: "2024-05-11 04:20 PM",
-  },
-];
-
-const initialVisitors: VisitorSubmission[] = [
-  {
-    id: "vis-301",
-    fullName: "Choki Gyeltshen",
-    email: "choki.g@gmail.com",
-    phone: "+975 17 654 321",
-    country: "Bhutan",
-    profession: "Business Owner",
-    purpose: "B2B Trade & Networking",
-    daysAttending: ["Day 1 - Opening Ceremony", "Day 2 - B2B Summit"],
-    passCode: "TGE-VIP-8821",
-    status: "Approved",
-    submittedAt: "2024-05-14 01:10 PM",
-  },
-  {
-    id: "vis-302",
-    fullName: "Elena Rostova",
-    email: "elena.r@investglob.com",
-    phone: "+44 20 7946 0912",
-    country: "United Kingdom",
-    profession: "Venture Capitalist",
-    purpose: "Investment Opportunities",
-    daysAttending: ["Day 1 - Opening Ceremony", "Day 3 - Innovation Showcase"],
-    passCode: "TGE-INT-9943",
-    status: "Approved",
-    submittedAt: "2024-05-16 05:50 PM",
-  },
-];
-
 // Helper Functions
 export const getExhibitors = (): ExhibitorSubmission[] => {
-  if (typeof window === "undefined") return initialExhibitors;
+  if (typeof window === "undefined") return [];
   const stored = localStorage.getItem(STORAGE_KEYS.EXHIBITORS);
-  if (!stored) {
-    localStorage.setItem(STORAGE_KEYS.EXHIBITORS, JSON.stringify(initialExhibitors));
-    return initialExhibitors;
-  }
+  if (!stored) return [];
   return JSON.parse(stored);
 };
 
@@ -179,12 +80,9 @@ export const deleteExhibitor = (id: string) => {
 };
 
 export const getSponsors = (): SponsorSubmission[] => {
-  if (typeof window === "undefined") return initialSponsors;
+  if (typeof window === "undefined") return [];
   const stored = localStorage.getItem(STORAGE_KEYS.SPONSORS);
-  if (!stored) {
-    localStorage.setItem(STORAGE_KEYS.SPONSORS, JSON.stringify(initialSponsors));
-    return initialSponsors;
-  }
+  if (!stored) return [];
   return JSON.parse(stored);
 };
 
@@ -214,12 +112,9 @@ export const deleteSponsor = (id: string) => {
 };
 
 export const getVisitors = (): VisitorSubmission[] => {
-  if (typeof window === "undefined") return initialVisitors;
+  if (typeof window === "undefined") return [];
   const stored = localStorage.getItem(STORAGE_KEYS.VISITORS);
-  if (!stored) {
-    localStorage.setItem(STORAGE_KEYS.VISITORS, JSON.stringify(initialVisitors));
-    return initialVisitors;
-  }
+  if (!stored) return [];
   return JSON.parse(stored);
 };
 
