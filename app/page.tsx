@@ -17,10 +17,10 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
-        <UpcomingEvents />
+        <UpcomingEvents from="home" />
         <InfoHub />
         <Partners />
-        <NewsUpdates />
+        <NewsUpdates from="home" />
       </main>
       <Footer />
     </div>

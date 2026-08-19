@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export default function NewsUpdates() {
+interface NewsUpdatesProps {
+  from?: "home" | "news";
+}
+
+export default function NewsUpdates({ from = "news" }: NewsUpdatesProps) {
   const newsItems = [
     {
       id: 1,
@@ -41,9 +45,10 @@ export default function NewsUpdates() {
         <div className="md:hidden">
           <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 px-1 -mx-1 scrollbar-none">
             {newsItems.map((news) => (
-              <div
+              <Link
                 key={news.id}
-                className="snap-start shrink-0 w-[82%] max-w-[300px] group flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-md text-left"
+                href={`/news/${news.id}?from=${from}`}
+                className="snap-start shrink-0 w-[82%] max-w-[300px] group flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-md text-left transition-transform active:scale-98"
               >
                 {/* Card Image */}
                 <div className="relative h-44 overflow-hidden bg-slate-100">
@@ -56,7 +61,7 @@ export default function NewsUpdates() {
                 {/* Card Content */}
                 <div className="p-5 flex flex-col justify-between flex-1 space-y-3">
                   <div className="space-y-1.5">
-                    <h3 className="text-sm font-bold text-[#03142A] leading-snug">
+                    <h3 className="text-sm font-bold text-[#03142A] leading-snug group-hover:text-[#0A4D8C] transition-colors">
                       {news.title}
                     </h3>
                     <p className="text-[11px] text-slate-500 font-semibold">
@@ -64,15 +69,12 @@ export default function NewsUpdates() {
                     </p>
                   </div>
 
-                  <Link
-                    href="/news"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A4D8C] underline underline-offset-4 py-1"
-                  >
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A4D8C] group-hover:text-[#EAA500] transition-colors underline underline-offset-4 py-1">
                     <span>Read More</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
@@ -82,12 +84,13 @@ export default function NewsUpdates() {
           </div>
         </div>
 
-        {/* DESKTOP VIEW (>= 768px): Original 3-Column News Grid (100% UNCHANGED) */}
+        {/* DESKTOP VIEW (>= 768px): Original 3-Column News Grid (100% UNCHANGED Layout) */}
         <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           {newsItems.map((news) => (
-            <div
+            <Link
               key={news.id}
-              className="group flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left"
+              href={`/news/${news.id}?from=${from}`}
+              className="group flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left cursor-pointer"
             >
               {/* Card Image */}
               <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-100">
@@ -108,15 +111,12 @@ export default function NewsUpdates() {
                   </p>
                 </div>
 
-                <Link
-                  href="/news"
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0A4D8C] hover:text-[#EAA500] transition-colors underline underline-offset-4"
-                >
+                <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0A4D8C] group-hover:text-[#EAA500] transition-colors underline underline-offset-4">
                   <span>Read More</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
