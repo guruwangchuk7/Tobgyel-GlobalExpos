@@ -1,38 +1,20 @@
 "use client";
 
-import { Phone, Mail, Globe } from "lucide-react";
+import { Phone, Mail, Globe as GlobeIcon } from "lucide-react";
+import Globe from "./Globe";
 
 export default function Footer() {
   return (
     <footer id="contact" className="bg-[#03142A] text-white pt-14 pb-6 border-t border-slate-900 relative overflow-hidden">
-      
-      {/* Full Width World Map Overlay using assets/map.jpg with Gold Pin on Bhutan */}
-      <div className="absolute inset-0 opacity-35 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
-        <div className="relative w-full h-full max-w-7xl mx-auto flex items-center justify-center">
-          <img 
-            src="/map.jpg" 
-            alt="World Map Background" 
-            className="w-full h-full object-cover sm:object-contain mix-blend-screen opacity-90"
-          />
-
-          {/* Glowing Gold Pin on Bhutan */}
-          <div className="absolute top-[42%] left-[68%] sm:left-[69%] transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full bg-[#EAA500]/60 animate-ping absolute" />
-            <div className="w-5 h-5 rounded-full bg-[#EAA500]/40 absolute" />
-            <div className="w-3.5 h-3.5 rounded-full bg-[#EAA500] border-2 border-white shadow-md" />
-          </div>
-        </div>
-      </div>
 
       {/* Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Main Grid: Contact Info & Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-slate-800/80 items-start">
-          
-          {/* Left Column: Contact Details (span 7 cols) */}
-          <div className="lg:col-span-7 space-y-6 min-h-[320px] flex flex-col justify-between py-2">
 
+        {/* Main Grid: 3 Columns - Contact Info (4) | Center 3D Globe (4) | Message Form (4) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 pb-12 border-b border-slate-800/80 items-center">
+
+          {/* Left Column: Contact Details (span 4 cols) */}
+          <div className="lg:col-span-4 space-y-6 flex flex-col justify-between py-2">
             <div className="space-y-2">
               <h2 className="text-xl sm:text-2xl font-black tracking-widest uppercase font-sans text-white">
                 Contact Us
@@ -72,7 +54,7 @@ export default function Footer() {
 
                 <div className="flex items-center gap-3">
                   <div className="p-1.5 rounded-full bg-slate-800/80 text-white">
-                    <Globe className="w-4 h-4" />
+                    <GlobeIcon className="w-4 h-4" />
                   </div>
                   <a href="https://www.tobgyelglobalexpos.bt" target="_blank" rel="noopener noreferrer" className="hover:text-[#EAA500] transition-colors">
                     www.tobgyelglobalexpos.bt
@@ -82,8 +64,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Right Column: Send Us A Message Form (span 5 cols) */}
-          <div className="lg:col-span-5 space-y-4">
+          {/* Center Column: High-Visibility Interactive 3D Globe (span 4 cols) */}
+          <div className="lg:col-span-4 flex items-center justify-center py-2 my-auto">
+            <Globe className="w-full max-w-[390px] sm:max-w-[430px] -translate-x-8 sm:-translate-x-12" />
+          </div>
+
+          {/* Right Column: Send Us A Message Form (span 4 cols) */}
+          <div className="lg:col-span-4 space-y-4">
             <h3 className="text-sm sm:text-base font-extrabold tracking-widest uppercase text-white">
               Send Us A Message
             </h3>
@@ -141,9 +128,9 @@ export default function Footer() {
             <span className="hidden sm:inline text-slate-500">|</span>{" "}
             <span className="block sm:inline mt-1 sm:mt-0">
               Developed by{" "}
-              <a 
-                href="https://kodadevportfolio.vercel.app/" 
-                target="_blank" 
+              <a
+                href="https://kodadevportfolio.vercel.app/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#EAA500] hover:underline font-bold transition-colors"
               >
