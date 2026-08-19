@@ -16,35 +16,44 @@ export default function Footer() {
           <div className="lg:col-span-7 space-y-6 relative min-h-[320px] flex flex-col justify-between py-2">
             
             {/* Dotted World Map Matrix Overlay matching user screenshot */}
-            <div className="absolute inset-0 opacity-40 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 opacity-55 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
               <svg 
                 viewBox="0 0 1000 500" 
-                className="w-full h-full text-slate-400 fill-current"
+                className="w-full h-full text-slate-300"
                 preserveAspectRatio="xMidYMid meet"
               >
                 <defs>
-                  <pattern id="worldMapDotGrid" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
-                    <circle cx="6" cy="6" r="3" fill="#94A3B8" opacity="0.9" />
+                  <pattern id="worldMapDotGrid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <circle cx="5" cy="5" r="2.4" fill="#CBD5E1" opacity="0.95" />
                   </pattern>
                 </defs>
 
-                {/* Dotted Continent Shapes Matrix */}
+                {/* Organic Curved Continent Shapes Filled with Dot Matrix */}
                 <g fill="url(#worldMapDotGrid)">
-                  {/* North America */}
-                  <path d="M 60,80 L 320,80 L 320,180 L 260,250 L 180,240 L 140,200 L 60,160 Z" />
+                  {/* North America & Greenland */}
+                  <path d="M 60,70 C 90,40 160,30 240,40 C 300,50 330,80 300,120 C 270,150 240,140 210,170 C 180,190 150,210 140,235 C 130,210 110,190 95,160 C 80,130 50,90 60,70 Z" />
+                  <path d="M 270,30 C 300,20 330,30 320,60 C 300,80 270,70 270,30 Z" />
+                  
                   {/* South America */}
-                  <path d="M 240,270 L 360,270 L 320,440 L 260,460 L 240,360 Z" />
+                  <path d="M 235,250 C 275,240 325,260 345,290 C 365,330 355,370 325,410 C 300,450 275,470 260,430 C 245,380 225,310 235,250 Z" />
+                  
                   {/* Europe */}
-                  <path d="M 440,70 L 590,70 L 580,160 L 440,150 Z" />
-                  {/* Africa */}
-                  <path d="M 460,170 L 600,170 L 590,360 L 500,380 L 460,280 Z" />
-                  {/* Asia */}
-                  <path d="M 590,60 L 920,60 L 910,240 L 800,260 L 740,220 L 590,180 Z" />
-                  {/* Australia & Oceania */}
-                  <path d="M 760,320 L 890,320 L 880,420 L 760,410 Z" />
+                  <path d="M 460,70 C 490,55 550,55 580,75 C 590,95 570,125 540,135 C 500,145 470,125 460,95 Z" />
+                  
+                  {/* Africa & Madagascar */}
+                  <path d="M 465,150 C 515,140 575,160 595,200 C 605,250 595,300 565,340 C 535,370 505,370 495,330 C 485,290 455,230 465,150 Z" />
+                  <path d="M 600,290 C 615,290 620,320 605,335 Z" />
+                  
+                  {/* Asia & Indian Subcontinent */}
+                  <path d="M 580,65 C 650,45 760,45 860,65 C 920,85 940,135 900,175 C 860,205 810,215 760,215 C 720,215 675,240 645,215 C 605,195 570,135 580,65 Z" />
+                  <path d="M 680,215 C 710,205 740,215 730,245 C 710,265 690,255 680,235 Z" />
+                  <path d="M 760,225 C 790,235 810,265 790,295 C 770,305 750,275 760,225 Z" />
+                  
+                  {/* Australia & Indonesia */}
+                  <path d="M 790,320 C 835,310 885,330 895,370 C 895,400 855,420 815,400 C 785,380 775,340 790,320 Z" />
                 </g>
 
-                {/* Glowing Gold Pin on Bhutan (Approx 700, 185) */}
+                {/* Glowing Gold Pin on Bhutan (Approx 695, 185) */}
                 <g transform="translate(695, 185)">
                   <circle r="18" fill="#EAA500" className="animate-ping opacity-75" />
                   <circle r="12" fill="#EAA500" opacity="0.5" />
