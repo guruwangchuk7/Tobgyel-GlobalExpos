@@ -21,9 +21,9 @@
   }
 }
 
-/* Custom scrollbar & responsive utilities */
+/* Disable global smooth scroll to ensure instant, non-animated route changes */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto !important;
 }
 
 .bg-brand-navy {
