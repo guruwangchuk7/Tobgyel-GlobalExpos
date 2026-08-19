@@ -15,51 +15,40 @@ export default function Footer() {
           {/* Left Column: Contact Details + World Map Background (span 7 cols) */}
           <div className="lg:col-span-7 space-y-6 relative min-h-[320px] flex flex-col justify-between py-2">
             
-            {/* Dotted World Map Vector Matrix Overlay with Gold Pin on Bhutan */}
-            <div className="absolute inset-0 opacity-25 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
+            {/* Dotted World Map Matrix Overlay matching user screenshot */}
+            <div className="absolute inset-0 opacity-40 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
               <svg 
                 viewBox="0 0 1000 500" 
-                className="w-full h-full text-slate-400"
+                className="w-full h-full text-slate-400 fill-current"
                 preserveAspectRatio="xMidYMid meet"
               >
                 <defs>
-                  <pattern id="dottedWorldPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                    <circle cx="4" cy="4" r="2" fill="currentColor" opacity="0.75" />
+                  <pattern id="worldMapDotGrid" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+                    <circle cx="6" cy="6" r="3" fill="#94A3B8" opacity="0.9" />
                   </pattern>
                 </defs>
 
-                {/* Continents Filled with Dot Matrix Pattern */}
-                <g fill="url(#dottedWorldPattern)">
+                {/* Dotted Continent Shapes Matrix */}
+                <g fill="url(#worldMapDotGrid)">
                   {/* North America */}
-                  <path d="M 120,60 C 150,50 200,40 250,50 C 280,60 300,90 280,120 C 250,140 220,130 190,160 C 160,180 140,200 130,220 C 120,200 100,180 90,150 C 80,120 100,80 120,60 Z" />
-                  <path d="M 230,170 C 250,190 270,220 260,250 C 240,270 230,290 220,310 C 210,280 210,240 220,200 Z" />
-                  
+                  <path d="M 60,80 L 320,80 L 320,180 L 260,250 L 180,240 L 140,200 L 60,160 Z" />
                   {/* South America */}
-                  <path d="M 260,280 C 290,270 330,290 350,320 C 370,360 360,400 330,440 C 310,470 290,460 280,420 C 270,380 250,330 260,280 Z" />
-                  
+                  <path d="M 240,270 L 360,270 L 320,440 L 260,460 L 240,360 Z" />
                   {/* Europe */}
-                  <path d="M 460,70 C 490,60 540,60 570,80 C 580,100 560,130 530,140 C 500,150 470,130 460,100 Z" />
-                  <path d="M 430,90 C 450,80 460,110 440,130 Z" />
-                  
+                  <path d="M 440,70 L 590,70 L 580,160 L 440,150 Z" />
                   {/* Africa */}
-                  <path d="M 470,160 C 520,150 570,170 590,210 C 600,260 590,310 560,350 C 530,380 500,380 490,340 C 480,300 460,240 470,160 Z" />
-                  <path d="M 600,300 C 610,300 615,330 605,340 Z" />
-                  
-                  {/* Eurasia / Asia */}
-                  <path d="M 580,70 C 650,50 750,50 840,70 C 900,90 920,140 880,180 C 850,210 800,220 750,220 C 710,220 670,240 640,220 C 600,200 570,140 580,70 Z" />
-                  <path d="M 680,220 C 710,210 740,220 730,250 C 710,270 690,260 680,240 Z" />
-                  <path d="M 760,230 C 790,240 810,270 790,300 C 770,310 750,280 760,230 Z" />
-                  <path d="M 830,200 C 860,190 890,210 870,240 C 850,260 830,240 830,200 Z" />
-                  
+                  <path d="M 460,170 L 600,170 L 590,360 L 500,380 L 460,280 Z" />
+                  {/* Asia */}
+                  <path d="M 590,60 L 920,60 L 910,240 L 800,260 L 740,220 L 590,180 Z" />
                   {/* Australia & Oceania */}
-                  <path d="M 800,330 C 840,320 890,340 900,380 C 900,410 860,430 820,410 C 790,390 780,350 800,330 Z" />
+                  <path d="M 760,320 L 890,320 L 880,420 L 760,410 Z" />
                 </g>
 
-                {/* Glowing Gold Pin on Bhutan */}
-                <g transform="translate(712, 185)">
-                  <circle r="16" fill="#EAA500" className="animate-ping opacity-75" />
-                  <circle r="10" fill="#EAA500" opacity="0.4" />
-                  <circle r="6" fill="#EAA500" stroke="#FFFFFF" strokeWidth="2" />
+                {/* Glowing Gold Pin on Bhutan (Approx 700, 185) */}
+                <g transform="translate(695, 185)">
+                  <circle r="18" fill="#EAA500" className="animate-ping opacity-75" />
+                  <circle r="12" fill="#EAA500" opacity="0.5" />
+                  <circle r="7" fill="#EAA500" stroke="#FFFFFF" strokeWidth="2.5" />
                 </g>
               </svg>
             </div>
