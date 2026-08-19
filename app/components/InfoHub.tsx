@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { 
   Check, 
   Handshake, 
@@ -54,12 +55,12 @@ export default function InfoHub() {
             </div>
 
             <div className="pt-4">
-              <a
-                href="#learn-more"
+              <Link
+                href="/exhibit"
                 className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded bg-[#03142A] hover:bg-[#072448] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-sm"
               >
                 Learn More
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -96,12 +97,12 @@ export default function InfoHub() {
             </div>
 
             <div className="pt-4">
-              <a
-                href="#participant-guide"
+              <Link
+                href="/visit"
                 className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded bg-[#03142A] hover:bg-[#072448] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-sm"
               >
                 Participant Guide
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -138,12 +139,12 @@ export default function InfoHub() {
             </div>
 
             <div className="pt-4">
-              <a
-                href="#read-regulations"
+              <Link
+                href="/visit"
                 className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded bg-[#03142A] hover:bg-[#072448] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-sm"
               >
                 Read Regulations
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -180,12 +181,12 @@ export default function InfoHub() {
             </div>
 
             <div className="pt-4">
-              <a
-                href="#visitor-guide"
+              <Link
+                href="/visit"
                 className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded bg-[#03142A] hover:bg-[#072448] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-sm"
               >
                 Visitor Guide
-              </a>
+              </Link>
             </div>
           </div>
 

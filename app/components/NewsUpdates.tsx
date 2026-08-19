@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export default function NewsUpdates() {
@@ -30,10 +31,10 @@ export default function NewsUpdates() {
         
         {/* Section Header */}
         <div className="text-center space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wider text-[#07162C] uppercase font-sans">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wider text-[#03142A] uppercase font-sans">
             Latest News &amp; Updates
           </h2>
-          <div className="w-16 h-1 bg-[#e5a000] mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-[#EAA500] mx-auto rounded-full" />
         </div>
 
         {/* News Grid */}
@@ -41,7 +42,7 @@ export default function NewsUpdates() {
           {newsItems.map((news) => (
             <div
               key={news.id}
-              className="group flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left"
             >
               {/* Card Image */}
               <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-100">
@@ -54,7 +55,7 @@ export default function NewsUpdates() {
               {/* Card Content */}
               <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
                 <div className="space-y-2">
-                  <h3 className="text-base sm:text-lg font-bold text-[#07162C] group-hover:text-[#0f4c81] transition-colors leading-snug">
+                  <h3 className="text-base sm:text-lg font-bold text-[#03142A] group-hover:text-[#0A4D8C] transition-colors leading-snug">
                     {news.title}
                   </h3>
                   <p className="text-xs text-slate-500 font-semibold">
@@ -62,13 +63,13 @@ export default function NewsUpdates() {
                   </p>
                 </div>
 
-                <a
-                  href={`#news-${news.id}`}
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0f4c81] hover:text-[#e5a000] transition-colors underline underline-offset-4"
+                <Link
+                  href="/news"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0A4D8C] hover:text-[#EAA500] transition-colors underline underline-offset-4"
                 >
                   <span>Read More</span>
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             </div>
           ))}
@@ -76,15 +77,16 @@ export default function NewsUpdates() {
 
         {/* View All News Button */}
         <div className="text-center">
-          <a
-            href="#all-news"
-            className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-[#07162C] hover:bg-[#0d274d] text-white font-bold text-xs sm:text-sm uppercase tracking-widest transition-colors shadow-md border border-slate-700"
+          <Link
+            href="/news"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-[#03142A] hover:bg-[#072448] text-white font-bold text-xs sm:text-sm uppercase tracking-widest transition-colors shadow-md border border-slate-700"
           >
             View All News
-          </a>
+          </Link>
         </div>
 
       </div>
     </section>
   );
 }
+

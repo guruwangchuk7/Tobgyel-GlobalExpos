@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Calendar, MapPin } from "lucide-react";
 
 export default function UpcomingEvents() {
@@ -75,12 +76,12 @@ export default function UpcomingEvents() {
 
         {/* View All Events Button */}
         <div className="text-center pb-8">
-          <a
-            href="#all-events"
+          <Link
+            href="/events"
             className="inline-flex items-center justify-center px-7 py-3 rounded-md bg-[#03142A] hover:bg-[#072448] text-white font-extrabold text-xs sm:text-sm uppercase tracking-widest transition-colors shadow-md"
           >
             View All Events
-          </a>
+          </Link>
         </div>
 
       </div>

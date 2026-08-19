@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { User, Handshake, Users, Globe, Calendar, MapPin, TrendingUp } from "lucide-react";
 
 export default function Hero() {
@@ -68,34 +69,34 @@ export default function Hero() {
             Connecting global businesses, investors, innovators, and communities through world-class exhibitions and events.
           </p>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons with proper page routing */}
           <div className="pt-2 flex flex-col sm:flex-row flex-wrap gap-4 items-stretch sm:items-center">
             {/* Button 1: Exhibitor */}
-            <a
-              href="#exhibit"
+            <Link
+              href="/exhibit"
               className="flex items-center justify-center gap-3 px-6 py-3.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <User className="w-5 h-5 text-white" />
               <span>Register as Exhibitor</span>
-            </a>
+            </Link>
 
             {/* Button 2: Sponsor */}
-            <a
-              href="#sponsor"
+            <Link
+              href="/partners"
               className="flex items-center justify-center gap-3 px-6 py-3.5 rounded-lg bg-[#D49900] hover:bg-[#bd8800] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <Handshake className="w-5 h-5 text-white" />
               <span>Become a Sponsor</span>
-            </a>
+            </Link>
 
             {/* Button 3: Visitor */}
-            <a
-              href="#visit"
+            <Link
+              href="/visit"
               className="flex items-center justify-center gap-3 px-6 py-3.5 rounded-lg bg-[#008E48] hover:bg-[#00773d] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <Users className="w-5 h-5 text-white" />
               <span>Visitor Registration</span>
-            </a>
+            </Link>
           </div>
 
         </div>
