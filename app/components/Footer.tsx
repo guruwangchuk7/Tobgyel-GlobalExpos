@@ -15,16 +15,45 @@ export default function Footer() {
           {/* Left Column: Contact Details + World Map Background (span 7 cols) */}
           <div className="lg:col-span-7 space-y-6 relative min-h-[320px] flex flex-col justify-between py-2">
             
-            {/* World Map SVG Overlay with Gold Pin on Bhutan */}
-            <div className="absolute inset-0 opacity-25 pointer-events-none -z-10 flex items-center justify-center">
-              <svg viewBox="0 0 1000 500" className="w-full h-full text-slate-400 fill-current">
-                {/* World Map Continent Shapes */}
-                <path d="M150,120 Q180,80 240,110 T320,130 T420,150 T500,100 T580,120 T680,140 T780,110 T880,130 M180,180 Q220,160 280,200 T360,220 T460,260 T560,220 T660,240 T760,210 T860,230 M210,260 Q260,230 320,270 T420,310 T520,330 T640,360 T740,330 T820,350 M140,280 Q190,320 240,360 T340,390" stroke="currentColor" strokeWidth="4" fill="none" strokeDasharray="6 6" />
-                <path d="M 680,170 C 690,160 720,160 740,170 C 750,180 760,200 740,210 C 720,220 690,210 680,190 Z" fill="currentColor" opacity="0.6" />
-                
-                {/* Bhutan Location Pin (Gold Dot & Pulsing Glow) */}
-                <circle cx="715" cy="190" r="10" fill="#EAA500" className="animate-ping opacity-75" />
-                <circle cx="715" cy="190" r="7" fill="#EAA500" stroke="#FFFFFF" strokeWidth="2" />
+            {/* High-Accuracy World Map Vector Silhouette Overlay with Gold Pin on Bhutan */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
+              <svg 
+                viewBox="0 0 1000 500" 
+                className="w-full h-full text-slate-300 fill-current"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <g fill="currentColor">
+                  {/* North America */}
+                  <path d="M 120,60 C 150,50 200,40 250,50 C 280,60 300,90 280,120 C 250,140 220,130 190,160 C 160,180 140,200 130,220 C 120,200 100,180 90,150 C 80,120 100,80 120,60 Z" />
+                  <path d="M 230,170 C 250,190 270,220 260,250 C 240,270 230,290 220,310 C 210,280 210,240 220,200 Z" />
+                  
+                  {/* South America */}
+                  <path d="M 260,280 C 290,270 330,290 350,320 C 370,360 360,400 330,440 C 310,470 290,460 280,420 C 270,380 250,330 260,280 Z" />
+                  
+                  {/* Europe */}
+                  <path d="M 460,70 C 490,60 540,60 570,80 C 580,100 560,130 530,140 C 500,150 470,130 460,100 Z" />
+                  <path d="M 430,90 C 450,80 460,110 440,130 Z" />
+                  
+                  {/* Africa */}
+                  <path d="M 470,160 C 520,150 570,170 590,210 C 600,260 590,310 560,350 C 530,380 500,380 490,340 C 480,300 460,240 470,160 Z" />
+                  <path d="M 600,300 C 610,300 615,330 605,340 Z" />
+                  
+                  {/* Eurasia / Asia */}
+                  <path d="M 580,70 C 650,50 750,50 840,70 C 900,90 920,140 880,180 C 850,210 800,220 750,220 C 710,220 670,240 640,220 C 600,200 570,140 580,70 Z" />
+                  <path d="M 680,220 C 710,210 740,220 730,250 C 710,270 690,260 680,240 Z" />
+                  <path d="M 760,230 C 790,240 810,270 790,300 C 770,310 750,280 760,230 Z" />
+                  <path d="M 830,200 C 860,190 890,210 870,240 C 850,260 830,240 830,200 Z" />
+                  
+                  {/* Australia & Oceania */}
+                  <path d="M 800,330 C 840,320 890,340 900,380 C 900,410 860,430 820,410 C 790,390 780,350 800,330 Z" />
+                </g>
+
+                {/* Glowing Gold Pin on Bhutan (Himalayas - Approx 710, 185) */}
+                <g transform="translate(712, 185)">
+                  <circle r="16" fill="#EAA500" className="animate-ping opacity-75" />
+                  <circle r="10" fill="#EAA500" opacity="0.4" />
+                  <circle r="6" fill="#EAA500" stroke="#FFFFFF" strokeWidth="2" />
+                </g>
               </svg>
             </div>
 
