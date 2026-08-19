@@ -26,8 +26,8 @@ export default function NewsUpdates() {
   ];
 
   return (
-    <section id="news" className="py-16 sm:py-20 bg-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="news" className="py-12 sm:py-20 bg-white border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         
         {/* Section Header */}
         <div className="text-center space-y-2">
@@ -37,8 +37,53 @@ export default function NewsUpdates() {
           <div className="w-16 h-1 bg-[#EAA500] mx-auto rounded-full" />
         </div>
 
-        {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* MOBILE VIEW (< 768px): Horizontal Swipeable News Carousel */}
+        <div className="md:hidden">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 px-1 -mx-1 scrollbar-none">
+            {newsItems.map((news) => (
+              <div
+                key={news.id}
+                className="snap-start shrink-0 w-[82%] max-w-[300px] group flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-md text-left"
+              >
+                {/* Card Image */}
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url('${news.image}')` }}
+                  />
+                </div>
+
+                {/* Card Content */}
+                <div className="p-5 flex flex-col justify-between flex-1 space-y-3">
+                  <div className="space-y-1.5">
+                    <h3 className="text-sm font-bold text-[#03142A] leading-snug">
+                      {news.title}
+                    </h3>
+                    <p className="text-[11px] text-slate-500 font-semibold">
+                      {news.date}
+                    </p>
+                  </div>
+
+                  <Link
+                    href="/news"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A4D8C] underline underline-offset-4 py-1"
+                  >
+                    <span>Read More</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center gap-1.5 mt-2 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+            <span>Swipe for more news</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[#EAA500]" />
+          </div>
+        </div>
+
+        {/* DESKTOP VIEW (>= 768px): Original 3-Column News Grid (100% UNCHANGED) */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           {newsItems.map((news) => (
             <div
               key={news.id}
@@ -79,7 +124,7 @@ export default function NewsUpdates() {
         <div className="text-center">
           <Link
             href="/news"
-            className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-[#03142A] hover:bg-[#072448] text-white font-bold text-xs sm:text-sm uppercase tracking-widest transition-colors shadow-md border border-slate-700"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-[#03142A] hover:bg-[#072448] active:bg-[#020b18] text-white font-bold text-xs sm:text-sm uppercase tracking-widest transition-colors shadow-md border border-slate-700 min-h-[44px]"
           >
             View All News
           </Link>
@@ -89,4 +134,3 @@ export default function NewsUpdates() {
     </section>
   );
 }
-

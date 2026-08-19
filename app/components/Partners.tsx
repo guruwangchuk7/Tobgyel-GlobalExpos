@@ -25,16 +25,15 @@ export default function Partners() {
   ];
 
   const corpPartners = [
-    { name: "TATA", image: "/partners/Tata.svg", scale: "scale-[1.6] sm:scale-[1.8]" },
+    { name: "TATA", image: "/partners/Tata.svg", scale: "scale-[1.3] sm:scale-[1.8]" },
     { name: "DHI", image: "/partners/dhi.png", scale: "scale-100" },
     { name: "Bank of Bhutan", image: "/partners/Bank_of_Bhutan_highres.webp", scale: "scale-100" },
-    { name: "Drukair", image: "/partners/Drukair.png", scale: "scale-[1.8] sm:scale-[2.0]" },
-    { name: "BOB", image: "/partners/Bank_of_Bhutan_highres.webp", scale: "scale-100" },
+    { name: "Drukair", image: "/partners/Drukair.png", scale: "scale-[1.4] sm:scale-[2.0]" },
   ];
 
   return (
-    <section id="partners" className="py-16 sm:py-20 bg-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="partners" className="py-12 sm:py-20 bg-white border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
         
         {/* Section Header */}
         <div className="text-center space-y-2">
@@ -50,9 +49,14 @@ export default function Partners() {
             Government Partners
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-8 items-center justify-items-center">
             {govtPartners.map((p, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center space-y-2 group cursor-pointer w-full">
+              <div 
+                key={idx} 
+                className={`flex flex-col items-center text-center space-y-2 group cursor-pointer w-full ${
+                  idx === 4 ? "col-span-2 sm:col-span-1 md:col-span-1 max-w-[180px] sm:max-w-none" : ""
+                }`}
+              >
                 {/* Compact Logo Image Container */}
                 <div className="w-full h-16 sm:h-20 lg:h-24 flex items-center justify-center p-1 group-hover:scale-105 transition-transform">
                   <img 
@@ -71,7 +75,7 @@ export default function Partners() {
         </div>
 
         {/* Divider line */}
-        <div className="w-full border-t border-slate-200/80 my-8" />
+        <div className="w-full border-t border-slate-200/80 my-6 sm:my-8" />
 
         {/* Corporate Partners */}
         <div className="space-y-6">
@@ -79,7 +83,7 @@ export default function Partners() {
             Corporate Partners
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 items-center justify-items-center">
             {corpPartners.map((cp, idx) => (
               <div 
                 key={idx} 
@@ -99,5 +103,3 @@ export default function Partners() {
     </section>
   );
 }
-
-
