@@ -15,14 +15,21 @@ export default function Footer() {
           {/* Left Column: Contact Details + World Map Background (span 7 cols) */}
           <div className="lg:col-span-7 space-y-6 relative min-h-[320px] flex flex-col justify-between py-2">
             
-            {/* High-Accuracy World Map Vector Silhouette Overlay with Gold Pin on Bhutan */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
+            {/* Dotted World Map Vector Matrix Overlay with Gold Pin on Bhutan */}
+            <div className="absolute inset-0 opacity-25 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
               <svg 
                 viewBox="0 0 1000 500" 
-                className="w-full h-full text-slate-300 fill-current"
+                className="w-full h-full text-slate-400"
                 preserveAspectRatio="xMidYMid meet"
               >
-                <g fill="currentColor">
+                <defs>
+                  <pattern id="dottedWorldPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <circle cx="4" cy="4" r="2" fill="currentColor" opacity="0.75" />
+                  </pattern>
+                </defs>
+
+                {/* Continents Filled with Dot Matrix Pattern */}
+                <g fill="url(#dottedWorldPattern)">
                   {/* North America */}
                   <path d="M 120,60 C 150,50 200,40 250,50 C 280,60 300,90 280,120 C 250,140 220,130 190,160 C 160,180 140,200 130,220 C 120,200 100,180 90,150 C 80,120 100,80 120,60 Z" />
                   <path d="M 230,170 C 250,190 270,220 260,250 C 240,270 230,290 220,310 C 210,280 210,240 220,200 Z" />
@@ -48,7 +55,7 @@ export default function Footer() {
                   <path d="M 800,330 C 840,320 890,340 900,380 C 900,410 860,430 820,410 C 790,390 780,350 800,330 Z" />
                 </g>
 
-                {/* Glowing Gold Pin on Bhutan (Himalayas - Approx 710, 185) */}
+                {/* Glowing Gold Pin on Bhutan */}
                 <g transform="translate(712, 185)">
                   <circle r="16" fill="#EAA500" className="animate-ping opacity-75" />
                   <circle r="10" fill="#EAA500" opacity="0.4" />
