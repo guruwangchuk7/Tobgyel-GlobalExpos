@@ -16,7 +16,7 @@ export default function Partners() {
     },
     {
       name: "Phuentsholing Thromde",
-      image: "/partners/Phuentsholing_Thromde.png",
+      image: "/partners/pheuntsholing.png",
     },
     {
       name: "Bhutan Chamber of Commerce & Industry",
