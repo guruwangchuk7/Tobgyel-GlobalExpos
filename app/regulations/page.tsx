@@ -75,11 +75,6 @@ export default function RegulationsPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#03142A] via-[#03142A]/90 to-transparent" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-3 z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAA500]/15 border border-[#EAA500]/40 text-[#EAA500] text-xs font-extrabold uppercase tracking-widest">
-            <Landmark className="w-4 h-4" />
-            <span>Official Government Compliance</span>
-          </div>
-
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white uppercase font-sans">
             Government Regulations Dashboard
           </h1>
