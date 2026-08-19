@@ -1,11 +1,9 @@
+"use client";
+
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Link from "next/link";
 import { CheckCircle2, Download, UserCheck, BarChart3, Globe2 } from "lucide-react";
-
-export const metadata = {
-  title: "Exhibit With Us | Tobgyel Global Expos",
-  description: "Register as an exhibitor at Tobgyel Global Expos in Bhutan to connect with regional partners, investors, and qualified buyers.",
-};
 
 export default function ExhibitPage() {
   return (
@@ -13,36 +11,36 @@ export default function ExhibitPage() {
       <Header />
       
       {/* Page Sub-hero Banner */}
-      <section className="bg-[#03142A] text-white py-14 sm:py-18 relative overflow-hidden border-b border-slate-900">
+      <section className="bg-[#03142A] text-white py-10 sm:py-18 relative overflow-hidden border-b border-slate-900">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity"
           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=80')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#03142A] via-[#03142A]/85 to-transparent" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-3 z-10">
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white uppercase font-sans">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-2.5 sm:space-y-3 z-10">
+          <h1 className="text-2xl xs:text-3xl sm:text-5xl font-black tracking-tight text-white uppercase font-sans">
             Exhibit With Us
           </h1>
           <div className="w-12 h-1 bg-[#EAA500] rounded-full" />
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl font-medium pt-1">
+          <p className="text-xs sm:text-base text-slate-300 max-w-2xl font-medium pt-1">
             Showcase your products, services, and innovations to key government stakeholders, regional distributors, and qualified global buyers.
           </p>
         </div>
       </section>
 
-      <main className="flex-1 py-14 sm:py-18 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <main className="flex-1 py-10 sm:py-18 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
           
           {/* Key Benefits Grid */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-2xl sm:text-3xl font-black tracking-wider text-[#03142A] uppercase font-sans">
+              <h2 className="text-xl sm:text-3xl font-black tracking-wider text-[#03142A] uppercase font-sans">
                 Why Exhibit At Tobgyel Global Expos?
               </h2>
               <div className="w-12 h-1 bg-[#EAA500] mx-auto rounded-full" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               {[
                 {
                   icon: UserCheck,
@@ -62,14 +60,14 @@ export default function ExhibitPage() {
               ].map((b, idx) => {
                 const Icon = b.icon;
                 return (
-                  <div key={idx} className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm space-y-4 text-left hover:shadow-md transition-all">
-                    <div className="p-3.5 bg-[#03142A] text-[#EAA500] rounded-lg w-fit">
+                  <div key={idx} className="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm space-y-3 sm:space-y-4 text-left hover:shadow-md transition-all">
+                    <div className="p-3 bg-[#03142A] text-[#EAA500] rounded-lg w-fit">
                       <Icon className="w-6 h-6 stroke-[2]" />
                     </div>
-                    <h3 className="text-lg font-bold text-[#03142A]">
+                    <h3 className="text-base sm:text-lg font-bold text-[#03142A]">
                       {b.title}
                     </h3>
-                    <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
                       {b.desc}
                     </p>
                   </div>
@@ -79,45 +77,46 @@ export default function ExhibitPage() {
           </div>
 
           {/* Registration Form / Callout */}
-          <div className="bg-[#03142A] text-white rounded-2xl p-8 sm:p-12 shadow-xl border border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-4 text-left">
-              <h3 className="text-2xl sm:text-3xl font-black uppercase text-white">
+          <div className="bg-[#03142A] text-white rounded-2xl p-6 sm:p-12 shadow-xl border border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            <div className="lg:col-span-7 space-y-3.5 sm:space-y-4 text-left">
+              <h3 className="text-xl sm:text-3xl font-black uppercase text-white">
                 Book Your Booth Space Today
               </h3>
-              <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
+              <p className="text-xs sm:text-base text-slate-300 font-medium leading-relaxed">
                 Booths are allocated on a first-come, first-served basis. Secure prime hall locations for the BIN Trade Showcase 2027.
               </p>
               <ul className="space-y-2 text-xs sm:text-sm font-semibold text-slate-200">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#008E48]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#008E48] shrink-0" />
                   <span>Customizable Shell Scheme &amp; Raw Space Options</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#008E48]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#008E48] shrink-0" />
                   <span>Complimentary B2B Matchmaking Portal Access</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#008E48]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#008E48] shrink-0" />
                   <span>Official Exhibitor Badge &amp; Catalog Listing</span>
                 </li>
               </ul>
             </div>
 
-            <div className="lg:col-span-5 flex flex-col gap-4">
-              <a
-                href="#exhibitor-form"
-                className="w-full py-4 px-6 rounded-lg bg-[#D49900] hover:bg-[#bd8800] text-white font-extrabold text-xs sm:text-sm uppercase tracking-widest text-center shadow-lg transition-all"
+            <div className="lg:col-span-5 flex flex-col gap-3 sm:gap-4">
+              <Link
+                href="/register/exhibitor"
+                className="w-full py-3.5 sm:py-4 px-6 rounded-lg bg-[#D49900] hover:bg-[#bd8800] active:bg-[#a37500] text-white font-extrabold text-xs sm:text-sm uppercase tracking-widest text-center shadow-lg transition-all min-h-[48px] flex items-center justify-center"
               >
                 Register As Exhibitor
-              </a>
+              </Link>
 
-              <a
-                href="#download-prospectus"
-                className="w-full py-3.5 px-6 rounded-lg border border-slate-600 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm uppercase tracking-widest text-center flex items-center justify-center gap-2 transition-colors"
+              <button
+                type="button"
+                onClick={() => alert("Downloading Tobgyel Global Expos Exhibitor Prospectus PDF...")}
+                className="w-full py-3 sm:py-3.5 px-6 rounded-lg border border-slate-600 hover:bg-slate-800 active:bg-slate-700 text-white font-bold text-xs sm:text-sm uppercase tracking-widest text-center flex items-center justify-center gap-2 transition-colors min-h-[44px]"
               >
                 <Download className="w-4 h-4 text-[#EAA500]" />
                 <span>Download Prospectus (PDF)</span>
-              </a>
+              </button>
             </div>
           </div>
 

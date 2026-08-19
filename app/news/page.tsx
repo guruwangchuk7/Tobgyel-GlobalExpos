@@ -13,13 +13,13 @@ export default function NewsPage() {
       <Header />
       
       {/* Sub-hero Banner */}
-      <section className="bg-[#03142A] text-white py-14 sm:py-18 relative overflow-hidden border-b border-slate-900">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-3 z-10">
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white uppercase font-sans">
+      <section className="bg-[#03142A] text-white py-10 sm:py-18 relative overflow-hidden border-b border-slate-900">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-2.5 sm:space-y-3 z-10">
+          <h1 className="text-2xl xs:text-3xl sm:text-5xl font-black tracking-tight text-white uppercase font-sans">
             Latest News &amp; Updates
           </h1>
           <div className="w-12 h-1 bg-[#EAA500] rounded-full" />
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl font-medium pt-1">
+          <p className="text-xs sm:text-base text-slate-300 max-w-2xl font-medium pt-1">
             Read official announcements, event schedules, and economic partnership developments.
           </p>
         </div>
