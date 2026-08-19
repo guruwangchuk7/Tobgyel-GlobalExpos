@@ -40,7 +40,7 @@ export default function UpcomingEvents() {
           {events.map((evt) => (
             <div
               key={evt.id}
-              className="group relative rounded-xl overflow-hidden shadow-md border border-slate-200/80 bg-[#03142A] min-h-[280px] sm:min-h-[320px] flex flex-col justify-end transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group relative rounded-xl overflow-hidden shadow-md border border-slate-200/80 bg-[#03142A] min-h-[330px] sm:min-h-[370px] lg:min-h-[390px] flex flex-col justify-end transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               {/* Background Image with Dark Gradient Overlay */}
               <div
