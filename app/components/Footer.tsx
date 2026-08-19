@@ -129,9 +129,23 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Footer Bar matching reference image */}
+        {/* Bottom Footer Bar matching reference image with developer credit */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300 font-medium">
-          <p>© 2024 Tobgyel Global Expos. All Rights Reserved.</p>
+          <p>
+            © 2024 Tobgyel Global Expos. All Rights Reserved.{" "}
+            <span className="hidden sm:inline text-slate-500">|</span>{" "}
+            <span className="block sm:inline mt-1 sm:mt-0">
+              Developed by{" "}
+              <a 
+                href="https://kodadevportfolio.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#EAA500] hover:underline font-bold transition-colors"
+              >
+                KodaDev
+              </a>
+            </span>
+          </p>
 
           <div className="flex items-center space-x-3">
             {/* Facebook Circular Icon */}

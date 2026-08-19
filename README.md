@@ -131,3 +131,6 @@ npm run start
 © 2024–2026 **Tobgyel Global Expos**. All Rights Reserved.  
 P.O. Box 123, Phuentsholing, Chukha, Bhutan.
 
+Developed by [**KodaDev**](https://kodadevportfolio.vercel.app/)
+
+
