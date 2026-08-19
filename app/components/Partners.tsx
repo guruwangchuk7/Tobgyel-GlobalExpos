@@ -4,11 +4,13 @@ export default function Partners() {
   const govtPartners = [
     {
       name: "Royal Government of Bhutan",
+      image: "/partners/Royal_Government_of_Bhutan.jpg",
       sealText: "ROYAL GOVT",
       color: "#d99b00",
     },
     {
       name: "Ministry in Industry, Commerce & Employment",
+      image: "/partners/MoICE.jpg",
       sealText: "MOICE",
       color: "#0f4c81",
     },
@@ -30,11 +32,11 @@ export default function Partners() {
   ];
 
   const corpPartners = [
-    { name: "TATA", logoText: "TATA", textColor: "text-blue-900", font: "font-black tracking-widest text-xl sm:text-2xl" },
-    { name: "DHI", logoText: "DHI", textColor: "text-emerald-700", font: "font-black italic text-xl sm:text-2xl tracking-tighter" },
-    { name: "Bank of Bhutan", logoText: "BANK OF BHUTAN", textColor: "text-[#0f4c81]", font: "font-bold text-xs sm:text-sm tracking-wide" },
-    { name: "Drukair", logoText: "Drukair", textColor: "text-amber-700", font: "font-serif italic font-extrabold text-lg sm:text-xl" },
-    { name: "BOB", logoText: "BOB", textColor: "text-blue-950", font: "font-black text-xl sm:text-2xl tracking-widest" },
+    { name: "TATA", image: "/partners/Tata.svg", logoText: "TATA" },
+    { name: "DHI", image: "/partners/dhi.png", logoText: "DHI" },
+    { name: "Bank of Bhutan", image: "/partners/Bank_of_Bhutan_highres.webp", logoText: "BANK OF BHUTAN" },
+    { name: "Drukair", image: "/partners/Drukair.png", logoText: "Drukair" },
+    { name: "BOB", image: "/partners/Bank_of_Bhutan_highres.webp", logoText: "BOB" },
   ];
 
   return (
@@ -43,10 +45,10 @@ export default function Partners() {
         
         {/* Section Header */}
         <div className="text-center space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wider text-[#07162C] uppercase font-sans">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wider text-[#03142A] uppercase font-sans">
             Our Partners
           </h2>
-          <div className="w-16 h-1 bg-[#e5a000] mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-[#EAA500] mx-auto rounded-full" />
         </div>
 
         {/* Government Partners */}
@@ -58,19 +60,27 @@ export default function Partners() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
             {govtPartners.map((p, idx) => (
               <div key={idx} className="flex flex-col items-center text-center space-y-3 group cursor-pointer">
-                {/* Circular Seal Emblem */}
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white border-2 border-slate-200 shadow-md flex items-center justify-center p-2 group-hover:border-[#e5a000] transition-colors">
-                  <div 
-                    className="w-full h-full rounded-full border border-dashed border-slate-300 flex flex-col items-center justify-center p-1"
-                    style={{ backgroundColor: `${p.color}0D` }}
-                  >
-                    <svg viewBox="0 0 24 24" className="w-6 h-6" style={{ color: p.color }} fill="currentColor">
-                      <path d="M12 2L15 8L21 9L16.5 13.5L18 19.5L12 16L6 19.5L7.5 13.5L3 9L9 8L12 2Z" />
-                    </svg>
-                    <span className="text-[9px] font-black tracking-tighter uppercase mt-0.5" style={{ color: p.color }}>
-                      {p.sealText}
-                    </span>
-                  </div>
+                {/* Circular Seal / Real Image */}
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white border-2 border-slate-200 shadow-md flex items-center justify-center p-2 group-hover:border-[#EAA500] transition-colors overflow-hidden">
+                  {p.image ? (
+                    <img 
+                      src={p.image} 
+                      alt={p.name} 
+                      className="w-full h-full object-contain rounded-full"
+                    />
+                  ) : (
+                    <div 
+                      className="w-full h-full rounded-full border border-dashed border-slate-300 flex flex-col items-center justify-center p-1"
+                      style={{ backgroundColor: `${p.color}0D` }}
+                    >
+                      <svg viewBox="0 0 24 24" className="w-6 h-6" style={{ color: p.color }} fill="currentColor">
+                        <path d="M12 2L15 8L21 9L16.5 13.5L18 19.5L12 16L6 19.5L7.5 13.5L3 9L9 8L12 2Z" />
+                      </svg>
+                      <span className="text-[9px] font-black tracking-tighter uppercase mt-0.5" style={{ color: p.color }}>
+                        {p.sealText}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <p className="text-[11px] sm:text-xs font-semibold text-slate-700 max-w-[130px] leading-tight">
@@ -94,11 +104,19 @@ export default function Partners() {
             {corpPartners.map((cp, idx) => (
               <div 
                 key={idx} 
-                className="w-full h-20 sm:h-24 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center justify-center p-4 hover:border-[#e5a000] hover:shadow-md transition-all cursor-pointer"
+                className="w-full h-20 sm:h-24 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center justify-center p-4 hover:border-[#EAA500] hover:shadow-md transition-all cursor-pointer overflow-hidden"
               >
-                <span className={`${cp.font} ${cp.textColor}`}>
-                  {cp.logoText}
-                </span>
+                {cp.image ? (
+                  <img 
+                    src={cp.image} 
+                    alt={cp.name} 
+                    className="max-h-12 sm:max-h-14 w-auto object-contain"
+                  />
+                ) : (
+                  <span className="font-extrabold text-sm text-[#03142A]">
+                    {cp.logoText}
+                  </span>
+                )}
               </div>
             ))}
           </div>
@@ -108,3 +126,4 @@ export default function Partners() {
     </section>
   );
 }
+
