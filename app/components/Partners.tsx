@@ -5,38 +5,31 @@ export default function Partners() {
     {
       name: "Royal Government of Bhutan",
       image: "/partners/Royal_Government_of_Bhutan.jpg",
-      sealText: "ROYAL GOVT",
-      color: "#d99b00",
     },
     {
       name: "Ministry in Industry, Commerce & Employment",
       image: "/partners/MoICE.jpg",
-      sealText: "MOICE",
-      color: "#0f4c81",
     },
     {
       name: "Department of Tourism",
-      sealText: "TOURISM",
-      color: "#008a4b",
+      image: "/partners/Department_of_Tourism.png",
     },
     {
       name: "Phuentsholing Thromde",
-      sealText: "THROMDE",
-      color: "#07162c",
+      image: "/partners/Phuentsholing_Thromde.png",
     },
     {
       name: "Bhutan Chamber of Commerce & Industry",
-      sealText: "BCCI",
-      color: "#c68a00",
+      image: "/partners/BCCI_Bhutan_Chamber_of_Commerce_Industry.png",
     },
   ];
 
   const corpPartners = [
-    { name: "TATA", image: "/partners/Tata.svg", logoText: "TATA" },
-    { name: "DHI", image: "/partners/dhi.png", logoText: "DHI" },
-    { name: "Bank of Bhutan", image: "/partners/Bank_of_Bhutan_highres.webp", logoText: "BANK OF BHUTAN" },
-    { name: "Drukair", image: "/partners/Drukair.png", logoText: "Drukair" },
-    { name: "BOB", image: "/partners/Bank_of_Bhutan_highres.webp", logoText: "BOB" },
+    { name: "TATA", image: "/partners/Tata.svg" },
+    { name: "DHI", image: "/partners/dhi.png" },
+    { name: "Bank of Bhutan", image: "/partners/Bank_of_Bhutan_highres.webp" },
+    { name: "Drukair", image: "/partners/Drukair.png" },
+    { name: "BOB", image: "/partners/Bank_of_Bhutan_highres.webp" },
   ];
 
   return (
@@ -60,27 +53,13 @@ export default function Partners() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center">
             {govtPartners.map((p, idx) => (
               <div key={idx} className="flex flex-col items-center text-center space-y-3 group cursor-pointer">
-                {/* Circular Seal / Real Image */}
+                {/* Circular Seal / Image */}
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white border-2 border-slate-200 shadow-md flex items-center justify-center p-2 group-hover:border-[#EAA500] transition-colors overflow-hidden">
-                  {p.image ? (
-                    <img 
-                      src={p.image} 
-                      alt={p.name} 
-                      className="w-full h-full object-contain rounded-full"
-                    />
-                  ) : (
-                    <div 
-                      className="w-full h-full rounded-full border border-dashed border-slate-300 flex flex-col items-center justify-center p-1"
-                      style={{ backgroundColor: `${p.color}0D` }}
-                    >
-                      <svg viewBox="0 0 24 24" className="w-6 h-6" style={{ color: p.color }} fill="currentColor">
-                        <path d="M12 2L15 8L21 9L16.5 13.5L18 19.5L12 16L6 19.5L7.5 13.5L3 9L9 8L12 2Z" />
-                      </svg>
-                      <span className="text-[9px] font-black tracking-tighter uppercase mt-0.5" style={{ color: p.color }}>
-                        {p.sealText}
-                      </span>
-                    </div>
-                  )}
+                  <img 
+                    src={p.image} 
+                    alt={p.name} 
+                    className="w-full h-full object-contain rounded-full"
+                  />
                 </div>
 
                 <p className="text-[11px] sm:text-xs font-semibold text-slate-700 max-w-[130px] leading-tight">
@@ -106,17 +85,11 @@ export default function Partners() {
                 key={idx} 
                 className="w-full h-20 sm:h-24 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center justify-center p-4 hover:border-[#EAA500] hover:shadow-md transition-all cursor-pointer overflow-hidden"
               >
-                {cp.image ? (
-                  <img 
-                    src={cp.image} 
-                    alt={cp.name} 
-                    className="max-h-12 sm:max-h-14 w-auto object-contain"
-                  />
-                ) : (
-                  <span className="font-extrabold text-sm text-[#03142A]">
-                    {cp.logoText}
-                  </span>
-                )}
+                <img 
+                  src={cp.image} 
+                  alt={cp.name} 
+                  className="max-h-12 sm:max-h-14 w-auto object-contain"
+                />
               </div>
             ))}
           </div>
@@ -126,4 +99,5 @@ export default function Partners() {
     </section>
   );
 }
+
 
