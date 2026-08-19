@@ -1,63 +1,63 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Landmark, FileText, ShieldCheck, Scale, AlertCircle, PhoneCall, Download, CheckCircle2 } from "lucide-react";
+import { Globe, FileText, Building, Truck, ShieldCheck, Receipt, PhoneCall, Download, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Government Regulations & Compliance | Tobgyel Global Expos",
-  description: "Official government regulations, immigration rules, import procedures, tax & duty regulations, business compliance, and event participation guidelines for Bhutan trade expos.",
+  title: "International Participants Guide | Tobgyel Global Expos",
+  description: "Official guide for international trade delegates, exhibitors, and visitors: visa & entry permits, hotel accommodations, freight logistics, customs procedures, and tax information in Bhutan.",
 };
 
-export default function RegulationsPage() {
-  const regulationSections = [
-    {
-      icon: Landmark,
-      title: "Immigration & Entry Rules",
-      desc: "Official border entry procedures governed by the Department of Immigration, Ministry of Home Affairs, Royal Government of Bhutan.",
-      points: [
-        "All non-Bhutanese national delegates require valid entry clearance approved by the Department of Immigration.",
-        "Indian citizens must carry original Passport or Voter Identity Card issued by the Election Commission of India.",
-        "Exhibitors bringing foreign booth staff must submit accredited passport lists 10 days prior to event opening.",
-      ],
-    },
+export default function ParticipantsPage() {
+  const participantSections = [
     {
       icon: FileText,
-      title: "Import & Customs Procedures",
-      desc: "Guidelines on temporary importation of exhibition goods overseen by the Department of Revenue & Customs.",
+      title: "Visa & Entry Formalities",
+      desc: "All international trade delegates receive expedited visa clearance through Tobgyel Global Expos accredited portal.",
       points: [
-        "Temporary import permits granted for non-saleable display machinery, prototypes, and exhibition stall structures.",
-        "All commercial samples declared for sale must comply with standard Bhutan import duty assessments.",
-        "Prohibited goods list applies (hazardous substances, unregistered pharmaceuticals, restricted flora/fauna).",
+        "Online trade visa applications processed within 3 to 5 business days.",
+        "Indian nationals can present original Voter ID or Passport at Phuentsholing entry terminal.",
+        "Sustainable Development Fee (SDF) waiver assistance for certified trade exhibitors.",
       ],
     },
     {
-      icon: Scale,
-      title: "Tax & Duty Regulations",
-      desc: "Tax structures, tariff exemptions, and commercial transaction rules applicable to trade expo participants.",
+      icon: Building,
+      title: "Official Partner Hotels",
+      desc: "Exclusive discounted room rates and VIP hospitality packages for registered international attendees.",
       points: [
-        "Exhibition display materials and promotional catalogs exempted from customs duty under event clearance.",
-        "Sales tax (BST) applies to all commercial retail transactions conducted within the exhibition pavilion.",
-        "Foreign currency remittance guidance provided by the Royal Monetary Authority of Bhutan (RMA).",
+        "20% to 35% room discount at 4-star and 5-star partner hotels in Phuentsholing & Thimphu.",
+        "Complimentary breakfast, high-speed Wi-Fi, and daily venue shuttle transfers included.",
+        "Featured Partner Hotels: Druk Hotel, Hotel Tara Phendeyling, Le Méridien, Taj Tashi.",
+      ],
+    },
+    {
+      icon: Truck,
+      title: "Freight & Cargo Logistics",
+      desc: "Comprehensive door-to-booth freight forwarding and cargo handling for exhibition materials.",
+      points: [
+        "Temporary import bond assistance for foreign exhibition booth equipment.",
+        "On-site warehouse storage and forklift handling at Phuentsholing & Thimphu expo halls.",
+        "Cross-border shipping coordination from Kolkata Port, Bagdogra Airport, and Jaigaon ICD.",
       ],
     },
     {
       icon: ShieldCheck,
-      title: "Business Compliance & Standards",
-      desc: "Corporate compliance, safety regulations, and quality standards mandated by MoICE & BSB.",
+      title: "Customs & Clearance",
+      desc: "Streamlined customs inspection and duty-free entry for promotional materials and display samples.",
       points: [
-        "Product safety and food health standards inspected by the Bhutan Food & Drug Authority (BFDA).",
-        "Fire safety, structural stability, and electrical load limits compliance certified by local Thromde authorities.",
-        "Mandatory display of official exhibitor badges across all exhibition halls and B2B lounge areas.",
+        "Fast-track customs clearance at Paro Airport and Phuentsholing land border checkpoint.",
+        "Duty-free allowance for non-saleable promotional brochures, catalogs, and giveaway banners.",
+        "On-site customs helpdesk available during exhibition setup days.",
       ],
     },
     {
-      icon: AlertCircle,
-      title: "Event Participation Guidelines",
-      desc: "Code of conduct, booth operation hours, and venue security protocols enforced by Tobgyel Global Expos.",
+      icon: Receipt,
+      title: "Tax & Financial Information",
+      desc: "Guidelines on commercial transactions, foreign currency exchange, and tax compliance in Bhutan.",
       points: [
-        "Booth setup must be completed 12 hours prior to official inaugural ribbon-cutting ceremony.",
-        "Dismantling of booth structures allowed only after official event closing hours on the final day.",
-        "Security personnel present 24/7; official exhibitor pass required for after-hours hall entry.",
+        "Bhutanese Ngultrum (BTN) pegged 1:1 with Indian Rupee (INR).",
+        "INR currency notes up to ₹500 widely accepted across commercial establishments.",
+        "International credit card POS terminals available at all official venue counters.",
       ],
     },
   ];
@@ -70,44 +70,44 @@ export default function RegulationsPage() {
       <section className="bg-[#03142A] text-white py-14 sm:py-18 relative overflow-hidden border-b border-slate-900">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity"
-          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=2000&q=80')` }}
+          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=2000&q=80')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#03142A] via-[#03142A]/90 to-transparent" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-3 z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAA500]/15 border border-[#EAA500]/40 text-[#EAA500] text-xs font-extrabold uppercase tracking-widest">
-            <Landmark className="w-4 h-4" />
-            <span>Official Government Compliance</span>
+            <Globe className="w-4 h-4" />
+            <span>International Delegate Portal</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white uppercase font-sans">
-            Government Regulations Dashboard
+            International Participants Guide
           </h1>
           <div className="w-12 h-1 bg-[#EAA500] rounded-full" />
           
           <p className="text-sm sm:text-base text-slate-300 max-w-3xl font-medium pt-1 leading-relaxed">
-            Official statutory rules, immigration clearance, customs procedures, duty exemptions, and business compliance standards for participating in trade fairs in Bhutan.
+            Essential guidelines for global exhibitors, overseas business delegations, and international buyers attending Tobgyel Global Expos in Bhutan.
           </p>
         </div>
       </section>
 
       <main className="flex-1">
-        {/* Regulations Grid */}
+        {/* Sections Grid */}
         <section className="py-14 sm:py-18 bg-slate-50 border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="text-center space-y-2">
               <span className="text-xs font-black tracking-widest text-[#0A4D8C] uppercase">
-                Statutory Framework &amp; Compliance
+                Delegate Services &amp; Logistics
               </span>
               <h2 className="text-2xl sm:text-3xl font-black tracking-wider text-[#03142A] uppercase font-sans">
-                Regulatory Guidelines for Participants
+                Overseas Participant Support
               </h2>
               <div className="w-12 h-1 bg-[#EAA500] mx-auto rounded-full" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {regulationSections.map((sec, idx) => {
+              {participantSections.map((sec, idx) => {
                 const Icon = sec.icon;
                 return (
                   <div key={idx} className="bg-white p-7 rounded-xl border border-slate-200 shadow-sm space-y-4 text-left flex flex-col justify-between hover:shadow-md transition-all">
@@ -127,7 +127,7 @@ export default function RegulationsPage() {
                       <ul className="space-y-2 pt-2 border-t border-slate-100">
                         {sec.points.map((p, pIdx) => (
                           <li key={pIdx} className="flex items-start gap-2 text-xs text-slate-600 font-medium leading-relaxed">
-                            <CheckCircle2 className="w-4 h-4 text-[#EAA500] shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-4 h-4 text-[#008E48] shrink-0 mt-0.5" />
                             <span>{p}</span>
                           </li>
                         ))}
@@ -146,30 +146,30 @@ export default function RegulationsPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div className="space-y-2">
               <span className="text-xs font-black tracking-widest text-[#EAA500] uppercase">
-                Legal &amp; Regulatory Liaison
+                International Helpdesk
               </span>
               <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white uppercase font-sans">
-                Have Specific Compliance or Customs Questions?
+                Need Dedicated Overseas Delegate Assistance?
               </h2>
               <p className="text-sm text-slate-300 max-w-xl mx-auto font-medium">
-                Our government liaison desk is ready to assist exhibitors with temporary import permits, customs clearance, and statutory compliance.
+                Our international relations team is ready to assist your trade delegation with invitation letters, visa processing, and booth logistics.
               </p>
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs sm:text-sm font-bold">
               <a
-                href="mailto:regulations@tobgyelglobalexpos.com"
+                href="mailto:international@tobgyelglobalexpos.com"
                 className="px-6 py-3 rounded-lg bg-[#EAA500] hover:bg-[#c98e00] text-[#03142A] uppercase tracking-wider transition-colors shadow-md inline-flex items-center gap-2"
               >
                 <PhoneCall className="w-4 h-4" />
-                <span>Contact Regulatory Desk</span>
+                <span>Contact Overseas Concierge</span>
               </a>
               <Link
-                href="/visit"
+                href="/exhibit"
                 className="px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 text-white border border-white/20 uppercase tracking-wider transition-colors inline-flex items-center gap-2"
               >
                 <Download className="w-4 h-4 text-[#EAA500]" />
-                <span>Plan Your Visit</span>
+                <span>Exhibitor Prospectus</span>
               </Link>
             </div>
           </div>

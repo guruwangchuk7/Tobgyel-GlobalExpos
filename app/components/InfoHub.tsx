@@ -87,9 +87,14 @@ export default function InfoHub() {
                 ].map((item, idx) => {
                   const ItemIcon = item.icon;
                   return (
-                    <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-semibold hover:text-[#03142A] cursor-pointer">
-                      <ItemIcon className="w-4 h-4 text-slate-600 shrink-0 stroke-[1.8]" />
-                      <span>{item.text}</span>
+                    <li key={idx}>
+                      <Link 
+                        href="/participants" 
+                        className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-semibold hover:text-[#0A4D8C] transition-colors"
+                      >
+                        <ItemIcon className="w-4 h-4 text-slate-600 shrink-0 stroke-[1.8]" />
+                        <span>{item.text}</span>
+                      </Link>
                     </li>
                   );
                 })}
@@ -98,7 +103,7 @@ export default function InfoHub() {
 
             <div className="pt-4">
               <Link
-                href="/visit"
+                href="/participants"
                 className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded bg-[#03142A] hover:bg-[#072448] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-sm"
               >
                 Participant Guide
@@ -129,9 +134,14 @@ export default function InfoHub() {
                 ].map((item, idx) => {
                   const ItemIcon = item.icon;
                   return (
-                    <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-semibold hover:text-[#03142A] cursor-pointer">
-                      <ItemIcon className="w-4 h-4 text-slate-600 shrink-0 stroke-[1.8]" />
-                      <span>{item.text}</span>
+                    <li key={idx}>
+                      <Link 
+                        href="/regulations" 
+                        className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-semibold hover:text-[#0A4D8C] transition-colors"
+                      >
+                        <ItemIcon className="w-4 h-4 text-slate-600 shrink-0 stroke-[1.8]" />
+                        <span>{item.text}</span>
+                      </Link>
                     </li>
                   );
                 })}
@@ -140,7 +150,7 @@ export default function InfoHub() {
 
             <div className="pt-4">
               <Link
-                href="/visit"
+                href="/regulations"
                 className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded bg-[#03142A] hover:bg-[#072448] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-sm"
               >
                 Read Regulations
