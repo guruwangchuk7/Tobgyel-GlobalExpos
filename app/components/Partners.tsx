@@ -12,7 +12,7 @@ export default function Partners() {
     },
     {
       name: "Department of Tourism",
-      image: "/partners/Department_of_Tourism.png",
+      image: "/partners/toursimlogo.png",
     },
     {
       name: "Phuentsholing Thromde",
