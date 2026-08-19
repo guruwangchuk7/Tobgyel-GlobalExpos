@@ -69,11 +69,11 @@ export default function Hero() {
             Connecting global businesses, investors, innovators, and communities through world-class exhibitions and events.
           </p>
 
-          {/* CTA Buttons with proper page routing */}
+          {/* CTA Buttons with proper page routing to dedicated forms */}
           <div className="pt-2 flex flex-col sm:flex-row flex-wrap gap-4 items-stretch sm:items-center">
             {/* Button 1: Exhibitor */}
             <Link
-              href="/exhibit"
+              href="/register/exhibitor"
               className="flex items-center justify-center gap-3 px-6 py-3.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <User className="w-5 h-5 text-white" />
@@ -82,7 +82,7 @@ export default function Hero() {
 
             {/* Button 2: Sponsor */}
             <Link
-              href="/partners"
+              href="/register/sponsor"
               className="flex items-center justify-center gap-3 px-6 py-3.5 rounded-lg bg-[#D49900] hover:bg-[#bd8800] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <Handshake className="w-5 h-5 text-white" />
@@ -91,7 +91,7 @@ export default function Hero() {
 
             {/* Button 3: Visitor */}
             <Link
-              href="/visit"
+              href="/register/visitor"
               className="flex items-center justify-center gap-3 px-6 py-3.5 rounded-lg bg-[#008E48] hover:bg-[#00773d] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <Users className="w-5 h-5 text-white" />

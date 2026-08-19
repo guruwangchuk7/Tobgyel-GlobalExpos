@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Phone, Mail, Globe as GlobeIcon } from "lucide-react";
 import Globe from "./Globe";
 
@@ -135,7 +136,11 @@ export default function Footer() {
                 className="text-[#EAA500] hover:underline font-bold transition-colors"
               >
                 KodaDev
-              </a>
+              </a>{" "}
+              <span className="text-slate-500">•</span>{" "}
+              <Link href="/admin" className="text-slate-400 hover:text-white transition-colors">
+                Admin Portal
+              </Link>
             </span>
           </p>
 
