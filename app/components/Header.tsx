@@ -20,21 +20,21 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#03142A] text-white border-b border-slate-900 shadow-lg">
+    <header className="sticky top-0 z-50 bg-[#03142A] text-white border-b border-slate-900 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          
+
           {/* Brand Logo & Title */}
           <Link href="/" className="flex items-center gap-3 group shrink-0">
             {/* Official Logo Image */}
             <div className="w-12 h-12 relative flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white border border-[#EAA500]/40 group-hover:border-[#EAA500] transition-colors shadow-sm">
-              <img 
-                src="/logo.jpeg" 
-                alt="Tobgyel Global Expos Logo" 
+              <img
+                src="/logo.jpeg"
+                alt="Tobgyel Global Expos Logo"
                 className="w-full h-full object-cover"
               />
             </div>
-            
+
             <div className="flex flex-col">
               <span className="text-xl sm:text-2xl font-black tracking-widest text-white font-sans uppercase leading-none">
                 Tobgyel
@@ -56,11 +56,10 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-xs xl:text-sm font-bold tracking-widest transition-colors py-2 relative ${
-                    isActive
+                  className={`text-xs xl:text-sm font-bold tracking-widest transition-colors py-2 relative ${isActive
                       ? "text-[#EAA500] border-b-2 border-[#EAA500]"
                       : "text-white hover:text-[#EAA500]"
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -71,7 +70,7 @@ export default function Header() {
           {/* Vertical Separator + Search Button & Mobile Menu Toggle */}
           <div className="flex items-center gap-3">
             <div className="hidden lg:block h-6 w-[1px] bg-slate-700/60 mx-1" />
-            
+
             <button
               aria-label="Search"
               className="p-2 text-white hover:text-[#EAA500] transition-colors"
@@ -101,11 +100,10 @@ export default function Header() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-3 rounded-md text-sm font-bold tracking-widest ${
-                  isActive
+                className={`block px-4 py-3 rounded-md text-sm font-bold tracking-widest ${isActive
                     ? "bg-[#0a2347] text-[#EAA500] border-l-4 border-[#EAA500]"
                     : "text-white hover:bg-slate-800"
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>
