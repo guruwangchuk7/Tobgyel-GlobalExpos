@@ -1,44 +1,35 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { User, Handshake, Users, Globe, Calendar, MapPin, TrendingUp } from "lucide-react";
+import { getCMSHeroConfig, INITIAL_HERO, HeroConfigCMS } from "@/app/lib/cmsStore";
+
+const iconMap: Record<string, typeof Globe> = {
+  Globe,
+  Users,
+  Calendar,
+  MapPin,
+  TrendingUp,
+};
 
 export default function Hero() {
-  const highlights = [
-    {
-      icon: Globe,
-      title: "GLOBAL NETWORK",
-      subtitle: "Connecting Markets",
-    },
-    {
-      icon: Users,
-      title: "1000+ BUSINESSES",
-      subtitle: "Participating",
-    },
-    {
-      icon: Calendar,
-      title: "WORLD CLASS EVENTS",
-      subtitle: "Exhibitions & Forums",
-    },
-    {
-      icon: MapPin,
-      title: "BHUTAN PHUENTSHOLING",
-      subtitle: "Strategic Location",
-    },
-    {
-      icon: TrendingUp,
-      title: "GROW TOGETHER",
-      subtitle: "Collaborate • Expand • Succeed",
-    },
-  ];
+  const [config, setConfig] = useState<HeroConfigCMS>(INITIAL_HERO);
+
+  useEffect(() => {
+    const loaded = getCMSHeroConfig();
+    if (loaded) {
+      setConfig(loaded);
+    }
+  }, []);
 
   return (
-    <section className="relative bg-[#03142A] text-white overflow-hidden">
+    <section className="relative bg-[#03142A] text-white overflow-hidden font-sans">
       {/* Background Image Overlay featuring high-res Bhutan Trade Pavilion & Delegates */}
       <div 
         className="absolute inset-0 bg-cover bg-right lg:bg-center"
         style={{
-          backgroundImage: `url('/hero-bhutan-expo.jpg')`,
+          backgroundImage: `url('${config.backgroundImageUrl}')`,
         }}
       />
       
@@ -52,12 +43,12 @@ export default function Hero() {
           {/* Main Heading matching landing page */}
           <div className="space-y-3">
             <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-[54px] font-black tracking-tight leading-[1.18] text-white font-sans">
-              Bhutan&apos;s Gateway to{" "}
+              {config.headlineMain}{" "}
               <span className="block text-[#EAA500]">
-                International Trade,
+                {config.headlineHighlight1}
               </span>
               <span className="block text-[#EAA500]">
-                Culture &amp; Business Events
+                {config.headlineHighlight2}
               </span>
             </h1>
             {/* Small Yellow Accent Line under Heading */}
@@ -66,7 +57,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <p className="text-sm sm:text-lg text-slate-200 font-medium leading-relaxed max-w-xl">
-            Connecting global businesses, investors, innovators, and communities through world-class exhibitions and events.
+            {config.subtitle}
           </p>
 
           {/* CTA Buttons with proper page routing to dedicated forms & full touch area on mobile */}
@@ -106,16 +97,16 @@ export default function Hero() {
       <div className="relative bg-[#020b18] border-t border-slate-800/80 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-0 lg:divide-x lg:divide-slate-700/60">
-            {highlights.map((item, idx) => {
-              const Icon = item.icon;
+            {config.stats.map((item, idx) => {
+              const IconComponent = iconMap[item.iconName] || Globe;
               return (
                 <div 
                   key={idx} 
                   className={`flex items-center gap-3.5 px-1 lg:px-6 py-1.5 lg:py-0 text-left ${
-                    idx === highlights.length - 1 ? "col-span-2 sm:col-span-1 lg:col-span-1" : ""
+                    idx === config.stats.length - 1 ? "col-span-2 sm:col-span-1 lg:col-span-1" : ""
                   }`}
                 >
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-[#EAA500] shrink-0 stroke-[1.8]" />
+                  <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-[#EAA500] shrink-0 stroke-[1.8]" />
                   <div>
                     <h3 className="text-[11px] sm:text-xs xl:text-sm font-black tracking-wider text-white uppercase leading-tight">
                       {item.title}

@@ -1,33 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getCMSNews, INITIAL_NEWS, NewsArticleCMS } from "@/app/lib/cmsStore";
 
 interface NewsUpdatesProps {
   from?: "home" | "news";
 }
 
 export default function NewsUpdates({ from = "news" }: NewsUpdatesProps) {
-  const newsItems = [
-    {
-      id: 1,
-      title: "BIN Trade Showcase 2027 Registration Now Open",
-      date: "May 15, 2024",
-      image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 2,
-      title: "New International Partnerships Announced",
-      date: "May 10, 2024",
-      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 3,
-      title: "Bhutan: The Next Hub for Business & Investment",
-      date: "May 5, 2024",
-      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
-    },
-  ];
+  const [newsItems, setNewsItems] = useState<NewsArticleCMS[]>(INITIAL_NEWS);
+
+  useEffect(() => {
+    const loaded = getCMSNews();
+    if (loaded && loaded.length > 0) {
+      setNewsItems(loaded.filter((n) => n.status === "Published"));
+    }
+  }, []);
 
   return (
     <section id="news" className="py-12 sm:py-20 bg-white border-b border-slate-200">

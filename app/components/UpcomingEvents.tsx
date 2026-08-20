@@ -1,31 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { getCMSEvents, INITIAL_EVENTS, TradeEventCMS } from "@/app/lib/cmsStore";
 
 interface UpcomingEventsProps {
   from?: "home" | "events";
 }
 
 export default function UpcomingEvents({ from = "events" }: UpcomingEventsProps) {
-  const events = [
-    {
-      id: 1,
-      title: "BIN TRADE SHOWCASE 2027",
-      category: "Construction | Food | Tourism | Technology",
-      date: "May 20 – 23, 2027",
-      location: "Phuentsholing, Bhutan",
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      id: 2,
-      title: "HIMALAYAN FOOD & CULTURE FESTIVAL",
-      category: "Celebrating Heritage, Food, Arts & Traditions",
-      date: "Oct 10 – 14, 2027",
-      location: "Thimphu, Bhutan",
-      image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80",
-    },
-  ];
+  const [events, setEvents] = useState<TradeEventCMS[]>(INITIAL_EVENTS);
+
+  useEffect(() => {
+    const loaded = getCMSEvents();
+    if (loaded && loaded.length > 0) {
+      setEvents(loaded.filter((e) => e.status === "Published"));
+    }
+  }, []);
 
   return (
     <section id="events" className="py-10 sm:py-18 bg-[#F8FAFC]">

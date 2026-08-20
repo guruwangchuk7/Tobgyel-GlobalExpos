@@ -2,20 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { 
-  Check, 
-  Handshake, 
-  Globe, 
-  Landmark, 
-  Plane, 
-  FileText, 
-  Building, 
-  Truck, 
-  Shield, 
-  Receipt, 
-  Compass, 
-  Car, 
-  Sun, 
+import {
+  Check,
+  Handshake,
+  Globe,
+  Landmark,
+  Plane,
+  FileText,
+  Building,
+  Truck,
+  Shield,
+  Receipt,
+  Compass,
+  Car,
+  Sun,
   Contact,
   ChevronDown,
   ChevronUp
@@ -29,10 +29,10 @@ export default function InfoHub() {
   return (
     <section className="py-10 sm:py-18 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* MOBILE VIEW (< 768px): Progressive Disclosure Accordions & Compact Summaries */}
         <div className="md:hidden space-y-4 text-left">
-          
+
           {/* Mobile Card 1: WHY EXHIBIT? Compact Summary */}
           <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
             <div className="flex items-center gap-3">
@@ -103,8 +103,8 @@ export default function InfoHub() {
                     const ItemIcon = item.icon;
                     return (
                       <li key={idx}>
-                        <Link 
-                          href="/participants" 
+                        <Link
+                          href="/participants"
                           className="flex items-center gap-2.5 py-1 text-slate-800 hover:text-[#0A4D8C] transition-colors"
                         >
                           <ItemIcon className="w-4 h-4 text-slate-500 shrink-0 stroke-[1.8]" />
@@ -162,8 +162,8 @@ export default function InfoHub() {
                     const ItemIcon = item.icon;
                     return (
                       <li key={idx}>
-                        <Link 
-                          href="/regulations" 
+                        <Link
+                          href="/regulations"
                           className="flex items-center gap-2.5 py-1 text-slate-800 hover:text-[#0A4D8C] transition-colors"
                         >
                           <ItemIcon className="w-4 h-4 text-slate-500 shrink-0 stroke-[1.8]" />
@@ -221,8 +221,8 @@ export default function InfoHub() {
                     const ItemIcon = item.icon;
                     return (
                       <li key={idx}>
-                        <Link 
-                          href="/visit" 
+                        <Link
+                          href="/visit"
                           className="flex items-center gap-2.5 py-1 text-slate-800 hover:text-[#0A4D8C] transition-colors"
                         >
                           <ItemIcon className="w-4 h-4 text-slate-500 shrink-0 stroke-[1.8]" />
@@ -249,7 +249,7 @@ export default function InfoHub() {
 
         {/* DESKTOP VIEW (>= 768px): Original 4-Column Layout (100% UNCHANGED) */}
         <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-slate-200">
-          
+
           {/* Column 1: WHY EXHIBIT? */}
           <div className="flex flex-col justify-between space-y-6 lg:px-6 pb-6 lg:pb-0 border-b sm:border-b-0 border-slate-200 text-left">
             <div className="space-y-3">
@@ -313,8 +313,8 @@ export default function InfoHub() {
                   const ItemIcon = item.icon;
                   return (
                     <li key={idx}>
-                      <Link 
-                        href="/participants" 
+                      <Link
+                        href="/participants"
                         className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-semibold hover:text-[#0A4D8C] transition-colors"
                       >
                         <ItemIcon className="w-4 h-4 text-slate-600 shrink-0 stroke-[1.8]" />
@@ -360,8 +360,8 @@ export default function InfoHub() {
                   const ItemIcon = item.icon;
                   return (
                     <li key={idx}>
-                      <Link 
-                        href="/regulations" 
+                      <Link
+                        href="/regulations"
                         className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-semibold hover:text-[#0A4D8C] transition-colors"
                       >
                         <ItemIcon className="w-4 h-4 text-slate-600 shrink-0 stroke-[1.8]" />
@@ -407,8 +407,8 @@ export default function InfoHub() {
                   const ItemIcon = item.icon;
                   return (
                     <li key={idx}>
-                      <Link 
-                        href="/visit" 
+                      <Link
+                        href="/visit"
                         className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-semibold hover:text-[#0A4D8C] transition-colors"
                       >
                         <ItemIcon className="w-4 h-4 text-slate-600 shrink-0 stroke-[1.8]" />
