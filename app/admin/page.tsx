@@ -31,7 +31,12 @@ import {
   ShieldCheck as ShieldIcon,
   PhoneCall,
   Info,
-  BookOpen
+  BookOpen,
+  Globe,
+  Landmark,
+  Plane,
+  Menu,
+  X
 } from "lucide-react";
 
 import {
@@ -58,6 +63,14 @@ import {
   deleteCMSNews,
   getCMSHeroConfig,
   saveCMSHeroConfig,
+  getCMSWhyExhibit,
+  saveCMSWhyExhibit,
+  getCMSParticipants,
+  saveCMSParticipants,
+  getCMSVisit,
+  saveCMSVisit,
+  getCMSPartners,
+  saveCMSPartners,
   getCMSAbout,
   saveCMSAbout,
   getCMSContact,
@@ -67,6 +80,10 @@ import {
   TradeEventCMS,
   NewsArticleCMS,
   HeroConfigCMS,
+  WhyExhibitCMS,
+  ParticipantsCMS,
+  VisitCMS,
+  PartnersCMS,
   AboutCMS,
   ContactConfigCMS,
   RegulationsCMS,
@@ -79,8 +96,13 @@ export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
-  // Navigation Module & Active Sub-Tab
-  const [mainModule, setMainModule] = useState<"dashboard" | "exhibitors" | "sponsors" | "visitors" | "events" | "news" | "hero" | "about" | "contact" | "regulations">("dashboard");
+  // Mobile Navigation Drawer State
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Navigation Module & Active Sub-Tab (All Website Pages CMS Modules)
+  const [mainModule, setMainModule] = useState<
+    "dashboard" | "exhibitors" | "sponsors" | "visitors" | "events" | "news" | "hero" | "why-exhibit" | "participants" | "visit" | "partners" | "about" | "contact" | "regulations"
+  >("dashboard");
 
   // Submissions Data State
   const [searchQuery, setSearchQuery] = useState("");
@@ -94,6 +116,10 @@ export default function AdminPage() {
   const [cmsEvents, setCmsEvents] = useState<TradeEventCMS[]>([]);
   const [cmsNews, setCmsNews] = useState<NewsArticleCMS[]>([]);
   const [heroConfig, setHeroConfig] = useState<HeroConfigCMS | null>(null);
+  const [whyExhibitConfig, setWhyExhibitConfig] = useState<WhyExhibitCMS | null>(null);
+  const [participantsConfig, setParticipantsConfig] = useState<ParticipantsCMS | null>(null);
+  const [visitConfig, setVisitConfig] = useState<VisitCMS | null>(null);
+  const [partnersConfig, setPartnersConfig] = useState<PartnersCMS | null>(null);
   const [aboutConfig, setAboutConfig] = useState<AboutCMS | null>(null);
   const [contactConfig, setContactConfig] = useState<ContactConfigCMS | null>(null);
   const [regulationsConfig, setRegulationsConfig] = useState<RegulationsCMS | null>(null);
@@ -128,6 +154,10 @@ export default function AdminPage() {
     setCmsEvents(getCMSEvents());
     setCmsNews(getCMSNews());
     setHeroConfig(getCMSHeroConfig());
+    setWhyExhibitConfig(getCMSWhyExhibit());
+    setParticipantsConfig(getCMSParticipants());
+    setVisitConfig(getCMSVisit());
+    setPartnersConfig(getCMSPartners());
     setAboutConfig(getCMSAbout());
     setContactConfig(getCMSContact());
     setRegulationsConfig(getCMSRegulations());
@@ -148,6 +178,12 @@ export default function AdminPage() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("tobgyel_admin_session");
+  };
+
+  // Switch Module & Auto-Close Mobile Menu
+  const selectModule = (module: typeof mainModule) => {
+    setMainModule(module);
+    setIsMobileMenuOpen(false);
   };
 
   // Submissions Actions
@@ -251,7 +287,7 @@ export default function AdminPage() {
     }
   };
 
-  // Hero Config Actions
+  // Page CMS Actions
   const handleSaveHero = (e: React.FormEvent) => {
     e.preventDefault();
     if (heroConfig) {
@@ -261,7 +297,42 @@ export default function AdminPage() {
     }
   };
 
-  // About CMS Actions
+  const handleSaveWhyExhibit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (whyExhibitConfig) {
+      saveCMSWhyExhibit(whyExhibitConfig);
+      alert("Why Exhibit Content saved successfully!");
+      refreshData();
+    }
+  };
+
+  const handleSaveParticipants = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (participantsConfig) {
+      saveCMSParticipants(participantsConfig);
+      alert("International Participants Content saved successfully!");
+      refreshData();
+    }
+  };
+
+  const handleSaveVisit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (visitConfig) {
+      saveCMSVisit(visitConfig);
+      alert("Plan Your Visit Content saved successfully!");
+      refreshData();
+    }
+  };
+
+  const handleSavePartners = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (partnersConfig) {
+      saveCMSPartners(partnersConfig);
+      alert("Partners & Sponsors Content saved successfully!");
+      refreshData();
+    }
+  };
+
   const handleSaveAbout = (e: React.FormEvent) => {
     e.preventDefault();
     if (aboutConfig) {
@@ -271,7 +342,6 @@ export default function AdminPage() {
     }
   };
 
-  // Contact CMS Actions
   const handleSaveContact = (e: React.FormEvent) => {
     e.preventDefault();
     if (contactConfig) {
@@ -281,7 +351,6 @@ export default function AdminPage() {
     }
   };
 
-  // Regulations CMS Actions
   const handleSaveRegulations = (e: React.FormEvent) => {
     e.preventDefault();
     if (regulationsConfig) {
@@ -326,47 +395,19 @@ export default function AdminPage() {
     sponsors.filter(s => s.status === "Pending").length +
     visitors.filter(v => v.status === "Pending").length;
 
-  // Filtered lists
-  const filteredExhibitors = exhibitors.filter((item) => {
-    const matchesSearch =
-      item.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.contactPerson.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.email.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === "All" || item.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
-
-  const filteredSponsors = sponsors.filter((item) => {
-    const matchesSearch =
-      item.organizationName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.contactPerson.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.email.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === "All" || item.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
-
-  const filteredVisitors = visitors.filter((item) => {
-    const matchesSearch =
-      item.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.passCode.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === "All" || item.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
-
   return (
     <div className="min-h-screen bg-[#020D1B] text-white font-sans flex flex-col">
 
       {!isLoggedIn ? (
         /* Login Screen */
-        <main className="min-h-screen flex flex-col justify-center items-center px-4">
-          <div className="max-w-md w-full bg-[#03142A] border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6">
+        <main className="min-h-screen flex flex-col justify-center items-center px-4 py-8">
+          <div className="max-w-md w-full bg-[#03142A] border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
 
             <div className="text-center space-y-2">
               <div className="w-14 h-14 rounded-full bg-[#0A4D8C]/30 border border-[#0A4D8C] text-[#EAA500] mx-auto flex items-center justify-center">
                 <ShieldCheck className="w-8 h-8" />
               </div>
-              <h1 className="text-2xl font-black uppercase text-white tracking-wide font-sans">
+              <h1 className="text-xl sm:text-2xl font-black uppercase text-white tracking-wide font-sans">
                 Tobgyel CMS Admin Portal
               </h1>
               <p className="text-xs text-slate-300">
@@ -415,7 +456,7 @@ export default function AdminPage() {
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2 min-h-[48px]"
               >
                 <Lock className="w-4 h-4" />
                 <span>Sign In to CMS Dashboard</span>
@@ -431,31 +472,80 @@ export default function AdminPage() {
         </main>
       ) : (
         /* PROTECTED SIDEBAR + WORKSPACE LAYOUT */
-        <div className="flex-1 flex flex-col md:flex-row min-h-screen">
+        <div className="flex-1 flex flex-col md:flex-row min-h-screen relative">
 
-          {/* LEFT SIDEBAR NAVIGATION */}
-          <aside className="w-full md:w-64 bg-[#03142A] border-r border-slate-800/80 flex flex-col justify-between shrink-0 p-5 space-y-6">
+          {/* MOBILE RESPONSIVE TOP BAR (< 768px) */}
+          <div className="md:hidden bg-[#03142A] border-b border-slate-800 p-3.5 flex items-center justify-between sticky top-0 z-40">
+            {/* Left Side: Hamburger Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg bg-slate-900 border border-slate-700 text-white hover:text-[#EAA500] focus:outline-none min-h-[42px] min-w-[42px] flex items-center justify-center shrink-0"
+              aria-label="Toggle Navigation Menu"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+
+            {/* Right Side: Tobgyel CMS Logo & Active Module Title */}
+            <div className="flex items-center gap-2.5">
+              <div className="p-1.5 rounded-lg bg-[#0A4D8C] text-[#EAA500] shrink-0">
+                <LayoutDashboard className="w-4 h-4" />
+              </div>
+              <div className="text-right">
+                <h2 className="text-xs font-black uppercase text-white tracking-wider leading-tight">
+                  Tobgyel CMS
+                </h2>
+                <p className="text-[10px] text-slate-400 font-medium capitalize leading-tight">
+                  {mainModule.replace("-", " ")}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* MOBILE RESPONSIVE BACKDROP OVERLAY */}
+          {isMobileMenuOpen && (
+            <div
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 md:hidden transition-opacity"
+            />
+          )}
+
+          {/* SIDEBAR NAVIGATION (Desktop permanent left sidebar w-64 / Mobile slide-in drawer from left) */}
+          <aside
+            className={`fixed md:static inset-y-0 left-0 z-50 w-72 md:w-64 bg-[#03142A] border-r border-slate-800/80 flex flex-col justify-between shrink-0 p-5 space-y-6 overflow-y-auto transition-transform duration-300 ease-in-out ${
+              isMobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0"
+            }`}
+          >
             <div className="space-y-6">
 
-              {/* Brand Header */}
-              <div className="flex items-center gap-3 pb-4 border-b border-slate-800">
-                <div className="p-2 rounded-xl bg-[#0A4D8C] text-[#EAA500]">
-                  <LayoutDashboard className="w-5 h-5" />
+              {/* Brand Header & Mobile Close */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-[#0A4D8C] text-[#EAA500]">
+                    <LayoutDashboard className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-sm font-black uppercase text-white tracking-wider">
+                      Tobgyel CMS
+                    </h2>
+                    <p className="text-[11px] text-slate-400 font-medium">Control Center</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-sm font-black uppercase text-white tracking-wider">
-                    Tobgyel CMS
-                  </h2>
-                  <p className="text-[11px] text-slate-400 font-medium">Control Center</p>
-                </div>
+
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="md:hidden p-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white"
+                  aria-label="Close Navigation Drawer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
               {/* Sidebar Menu Section 1: Dashboard Overview */}
               <div className="space-y-1">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 mb-1">Overview</p>
                 <button
-                  onClick={() => setMainModule("dashboard")}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-bold transition-all ${mainModule === "dashboard"
+                  onClick={() => selectModule("dashboard")}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-bold transition-all min-h-[40px] ${mainModule === "dashboard"
                       ? "bg-[#0A4D8C] text-white shadow"
                       : "text-slate-300 hover:bg-slate-900 hover:text-white"
                     }`}
@@ -476,7 +566,7 @@ export default function AdminPage() {
               <div className="space-y-1">
                 <button
                   onClick={() => setSubmissionsOpen(!submissionsOpen)}
-                  className="w-full flex items-center justify-between px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 hover:text-slate-200"
+                  className="w-full flex items-center justify-between px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 hover:text-slate-200 py-1"
                 >
                   <span>Submissions</span>
                   {submissionsOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
@@ -485,8 +575,8 @@ export default function AdminPage() {
                 {submissionsOpen && (
                   <div className="space-y-1 pl-2">
                     <button
-                      onClick={() => setMainModule("exhibitors")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "exhibitors"
+                      onClick={() => selectModule("exhibitors")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "exhibitors"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -501,8 +591,8 @@ export default function AdminPage() {
                     </button>
 
                     <button
-                      onClick={() => setMainModule("sponsors")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "sponsors"
+                      onClick={() => selectModule("sponsors")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "sponsors"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -517,8 +607,8 @@ export default function AdminPage() {
                     </button>
 
                     <button
-                      onClick={() => setMainModule("visitors")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "visitors"
+                      onClick={() => selectModule("visitors")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "visitors"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -535,11 +625,11 @@ export default function AdminPage() {
                 )}
               </div>
 
-              {/* Sidebar Menu Section 3: Content CMS Group */}
+              {/* Sidebar Menu Section 3: Exact Content CMS Order */}
               <div className="space-y-1">
                 <button
                   onClick={() => setContentOpen(!contentOpen)}
-                  className="w-full flex items-center justify-between px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 hover:text-slate-200"
+                  className="w-full flex items-center justify-between px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 hover:text-slate-200 py-1"
                 >
                   <span>Content CMS</span>
                   {contentOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
@@ -547,9 +637,10 @@ export default function AdminPage() {
 
                 {contentOpen && (
                   <div className="space-y-1 pl-2">
+                    {/* 1. Trade Events (with count badge) */}
                     <button
-                      onClick={() => setMainModule("events")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "events"
+                      onClick={() => selectModule("events")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "events"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -563,9 +654,10 @@ export default function AdminPage() {
                       </span>
                     </button>
 
+                    {/* 2. News & Press Bureau (with count badge) */}
                     <button
-                      onClick={() => setMainModule("news")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "news"
+                      onClick={() => selectModule("news")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "news"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -579,9 +671,10 @@ export default function AdminPage() {
                       </span>
                     </button>
 
+                    {/* 3. Hero Banner */}
                     <button
-                      onClick={() => setMainModule("hero")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "hero"
+                      onClick={() => selectModule("hero")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "hero"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -592,9 +685,10 @@ export default function AdminPage() {
                       </div>
                     </button>
 
+                    {/* 4. About & Vision */}
                     <button
-                      onClick={() => setMainModule("about")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "about"
+                      onClick={() => selectModule("about")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "about"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -605,9 +699,10 @@ export default function AdminPage() {
                       </div>
                     </button>
 
+                    {/* 5. Contact & Footer */}
                     <button
-                      onClick={() => setMainModule("contact")}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all ${mainModule === "contact"
+                      onClick={() => selectModule("contact")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "contact"
                           ? "bg-slate-800 text-[#EAA500] font-bold"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                         }`}
@@ -615,6 +710,72 @@ export default function AdminPage() {
                       <div className="flex items-center gap-2">
                         <PhoneCall className="w-3.5 h-3.5" />
                         <span>Contact &amp; Footer</span>
+                      </div>
+                    </button>
+
+                    {/* Additional CMS Modules */}
+                    <button
+                      onClick={() => selectModule("why-exhibit")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "why-exhibit"
+                          ? "bg-slate-800 text-[#EAA500] font-bold"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                        }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Handshake className="w-3.5 h-3.5" />
+                        <span>Why Exhibit Page</span>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => selectModule("participants")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "participants"
+                          ? "bg-slate-800 text-[#EAA500] font-bold"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                        }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Globe className="w-3.5 h-3.5" />
+                        <span>Participants Guide</span>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => selectModule("regulations")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "regulations"
+                          ? "bg-slate-800 text-[#EAA500] font-bold"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                        }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Landmark className="w-3.5 h-3.5" />
+                        <span>Gov Regulations</span>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => selectModule("visit")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "visit"
+                          ? "bg-slate-800 text-[#EAA500] font-bold"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                        }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Plane className="w-3.5 h-3.5" />
+                        <span>Plan Your Visit</span>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => selectModule("partners")}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all min-h-[38px] ${mainModule === "partners"
+                          ? "bg-slate-800 text-[#EAA500] font-bold"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                        }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Building className="w-3.5 h-3.5" />
+                        <span>Partners &amp; Sponsors</span>
                       </div>
                     </button>
                   </div>
@@ -628,7 +789,7 @@ export default function AdminPage() {
               <Link
                 href="/"
                 target="_blank"
-                className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 transition-colors min-h-[40px]"
               >
                 <div className="flex items-center gap-2">
                   <ExternalLink className="w-3.5 h-3.5 text-[#EAA500]" />
@@ -648,7 +809,7 @@ export default function AdminPage() {
 
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-red-600/10 hover:bg-red-600/20 text-red-300 text-xs font-bold transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg bg-red-600/10 hover:bg-red-600/20 text-red-300 text-xs font-bold transition-colors min-h-[40px]"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>Sign Out</span>
@@ -657,12 +818,12 @@ export default function AdminPage() {
           </aside>
 
           {/* MAIN RIGHT WORKSPACE AREA */}
-          <main className="flex-1 bg-[#020D1B] p-6 sm:p-8 space-y-6 overflow-y-auto">
+          <main className="flex-1 bg-[#020D1B] p-4 sm:p-8 space-y-6 overflow-y-auto w-full max-w-full">
 
             {/* Top Workspace Bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800 text-left">
               <div>
-                <h1 className="text-xl sm:text-2xl font-black uppercase text-white tracking-wide">
+                <h1 className="text-lg sm:text-2xl font-black uppercase text-white tracking-wide">
                   {mainModule === "dashboard" && "Dashboard Overview"}
                   {mainModule === "exhibitors" && "Exhibitor Registrations"}
                   {mainModule === "sponsors" && "Sponsorship Packages"}
@@ -670,8 +831,13 @@ export default function AdminPage() {
                   {mainModule === "events" && "Trade Fairs & Events Manager"}
                   {mainModule === "news" && "News & Press Bureau"}
                   {mainModule === "hero" && "Landing Hero Configuration"}
+                  {mainModule === "why-exhibit" && "Why Exhibit Page Content"}
+                  {mainModule === "participants" && "International Participants Guide"}
+                  {mainModule === "visit" && "Plan Your Visit Page"}
+                  {mainModule === "partners" && "Partners & Sponsors"}
                   {mainModule === "about" && "About & Vision"}
                   {mainModule === "contact" && "Contact Info & Footer"}
+                  {mainModule === "regulations" && "Government Regulations"}
                 </h1>
                 <p className="text-xs text-slate-400 pt-0.5">
                   Manage records, edit fields, and publish updates to Tobgyel Global Expos
@@ -682,7 +848,7 @@ export default function AdminPage() {
                 {(mainModule === "exhibitors" || mainModule === "sponsors" || mainModule === "visitors") && (
                   <button
                     onClick={() => exportToCSV(mainModule)}
-                    className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 transition-colors flex items-center gap-1.5"
+                    className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 transition-colors flex items-center gap-1.5 min-h-[40px]"
                   >
                     <Download className="w-3.5 h-3.5 text-[#EAA500]" />
                     <span>Export CSV</span>
@@ -709,7 +875,7 @@ export default function AdminPage() {
                       setEventModalTab("edit");
                       setShowEventModal(true);
                     }}
-                    className="px-4 py-2 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2"
+                    className="px-4 py-2.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2 min-h-[40px]"
                   >
                     <Plus className="w-4 h-4 text-[#EAA500]" />
                     <span>Create Event</span>
@@ -734,7 +900,7 @@ export default function AdminPage() {
                       setNewsModalTab("edit");
                       setShowNewsModal(true);
                     }}
-                    className="px-4 py-2 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2"
+                    className="px-4 py-2.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2 min-h-[40px]"
                   >
                     <Plus className="w-4 h-4 text-[#EAA500]" />
                     <span>Create Article</span>
@@ -792,10 +958,10 @@ export default function AdminPage() {
 
             {/* EVENTS MODULE */}
             {mainModule === "events" && (
-              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-6 space-y-6 shadow-xl text-left">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-6 shadow-xl text-left">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   {cmsEvents.map((evt) => (
-                    <div key={evt.id} className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+                    <div key={evt.id} className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4 flex flex-col justify-between">
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className={`px-2.5 py-0.5 rounded text-[11px] font-extrabold uppercase ${evt.status === "Published" ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" : "bg-amber-500/20 text-amber-300"
@@ -819,14 +985,14 @@ export default function AdminPage() {
                               setEventModalTab("edit");
                               setShowEventModal(true);
                             }}
-                            className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-1.5"
+                            className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-1.5 min-h-[36px]"
                           >
                             <Edit3 className="w-3.5 h-3.5 text-[#EAA500]" />
                             <span>Edit</span>
                           </button>
                           <button
                             onClick={() => handleDeleteEventCMS(evt.id)}
-                            className="p-1.5 rounded hover:bg-red-500/20 text-slate-400 hover:text-red-400"
+                            className="p-2 rounded hover:bg-red-500/20 text-slate-400 hover:text-red-400 min-h-[36px] min-w-[36px] flex items-center justify-center"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -840,10 +1006,10 @@ export default function AdminPage() {
 
             {/* NEWS & PRESS BUREAU MODULE */}
             {mainModule === "news" && (
-              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-6 space-y-6 shadow-xl text-left">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-6 shadow-xl text-left">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                   {cmsNews.map((news) => (
-                    <div key={news.id} className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+                    <div key={news.id} className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4 flex flex-col justify-between">
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className={`px-2.5 py-0.5 rounded text-[11px] font-extrabold uppercase ${news.status === "Published" ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" : "bg-amber-500/20 text-amber-300"
@@ -869,14 +1035,14 @@ export default function AdminPage() {
                               setNewsModalTab("edit");
                               setShowNewsModal(true);
                             }}
-                            className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-1.5"
+                            className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-1.5 min-h-[36px]"
                           >
                             <Edit3 className="w-3.5 h-3.5 text-[#EAA500]" />
                             <span>Edit</span>
                           </button>
                           <button
                             onClick={() => handleDeleteNewsCMS(news.id)}
-                            className="p-1.5 rounded hover:bg-red-500/20 text-slate-400 hover:text-red-400"
+                            className="p-2 rounded hover:bg-red-500/20 text-slate-400 hover:text-red-400 min-h-[36px] min-w-[36px] flex items-center justify-center"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -890,9 +1056,9 @@ export default function AdminPage() {
 
             {/* HERO BANNER MODULE */}
             {mainModule === "hero" && heroConfig && (
-              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-8 shadow-xl text-left max-w-4xl">
+              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-4 sm:p-8 space-y-8 shadow-xl text-left max-w-4xl">
                 <form onSubmit={handleSaveHero} className="space-y-8 text-xs">
-                  
+
                   {/* Row 1: Main Headline & Gold Accents */}
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-dashed border-slate-800/80 pb-6">
                     <div className="w-full sm:w-1/3 space-y-1">
@@ -1059,7 +1225,7 @@ export default function AdminPage() {
                   <div className="flex justify-end pt-2">
                     <button
                       type="submit"
-                      className="px-8 py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                      className="w-full sm:w-auto px-8 py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2 min-h-[44px]"
                     >
                       <CheckCircle className="w-4 h-4 text-[#EAA500]" />
                       <span>Save Hero Configuration</span>
@@ -1071,7 +1237,7 @@ export default function AdminPage() {
 
             {/* ABOUT CMS MODULE */}
             {mainModule === "about" && aboutConfig && (
-              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-8 shadow-xl text-left max-w-4xl">
+              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-4 sm:p-8 space-y-8 shadow-xl text-left max-w-4xl">
                 <form onSubmit={handleSaveAbout} className="space-y-8 text-xs">
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-dashed border-slate-800/80 pb-6">
                     <div className="w-full sm:w-1/3 space-y-1">
@@ -1096,7 +1262,7 @@ export default function AdminPage() {
                   <div className="flex justify-end pt-2">
                     <button
                       type="submit"
-                      className="px-8 py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                      className="w-full sm:w-auto px-8 py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2 min-h-[44px]"
                     >
                       <CheckCircle className="w-4 h-4 text-[#EAA500]" />
                       <span>Save About Settings</span>
@@ -1108,7 +1274,7 @@ export default function AdminPage() {
 
             {/* CONTACT CMS MODULE */}
             {mainModule === "contact" && contactConfig && (
-              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-8 shadow-xl text-left max-w-4xl">
+              <div className="bg-[#03142A] border border-slate-800 rounded-2xl p-4 sm:p-8 space-y-8 shadow-xl text-left max-w-4xl">
                 <form onSubmit={handleSaveContact} className="space-y-8 text-xs">
 
                   {/* Row 1: Section Title & Form Titles */}
@@ -1225,7 +1391,7 @@ export default function AdminPage() {
                   <div className="flex justify-end pt-2">
                     <button
                       type="submit"
-                      className="px-8 py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                      className="w-full sm:w-auto px-8 py-3 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold text-xs uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2 min-h-[44px]"
                     >
                       <CheckCircle className="w-4 h-4 text-[#EAA500]" />
                       <span>Save Contact Details</span>
@@ -1242,43 +1408,42 @@ export default function AdminPage() {
 
       {/* FULL-FEATURED ARTICLE CREATION & EDIT MODAL WITH LIVE PREVIEW */}
       {showNewsModal && editingNews && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#03142A] border border-slate-800 rounded-2xl max-w-3xl w-full p-6 sm:p-8 space-y-6 text-left shadow-2xl my-8">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          <div className="bg-[#03142A] border border-slate-800 rounded-2xl max-w-3xl w-full p-4 sm:p-8 space-y-6 text-left shadow-2xl my-auto max-h-[90vh] overflow-y-auto">
 
             {/* Modal Top Bar with Live Preview Tabs */}
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-              <div className="flex items-center gap-4">
-                <h3 className="text-lg font-black uppercase text-white">
-                  {editingNews.id ? "Edit Press Release CMS Article" : "Create New Press Article"}
+              <div className="flex items-center gap-3">
+                <h3 className="text-sm sm:text-lg font-black uppercase text-white leading-tight">
+                  {editingNews.id ? "Edit Press Article" : "Create Press Article"}
                 </h3>
 
                 <div className="flex items-center bg-slate-900 p-1 rounded-lg border border-slate-700">
                   <button
                     onClick={() => setNewsModalTab("edit")}
-                    className={`px-3 py-1 rounded text-xs font-bold transition-all ${newsModalTab === "edit" ? "bg-[#0A4D8C] text-white shadow" : "text-slate-400 hover:text-white"
+                    className={`px-2.5 py-1 rounded text-xs font-bold transition-all ${newsModalTab === "edit" ? "bg-[#0A4D8C] text-white shadow" : "text-slate-400 hover:text-white"
                       }`}
                   >
-                    Edit Fields
+                    Edit
                   </button>
                   <button
                     onClick={() => setNewsModalTab("preview")}
-                    className={`px-3 py-1 rounded text-xs font-bold transition-all flex items-center gap-1.5 ${newsModalTab === "preview" ? "bg-[#EAA500] text-[#03142A] shadow" : "text-slate-400 hover:text-white"
+                    className={`px-2.5 py-1 rounded text-xs font-bold transition-all flex items-center gap-1 ${newsModalTab === "preview" ? "bg-[#EAA500] text-[#03142A] shadow" : "text-slate-400 hover:text-white"
                       }`}
                   >
                     <Eye className="w-3.5 h-3.5" />
-                    <span>Live Preview</span>
+                    <span>Preview</span>
                   </button>
                 </div>
               </div>
 
-              <button onClick={() => setShowNewsModal(false)} className="text-slate-400 hover:text-white text-lg">✕</button>
+              <button onClick={() => setShowNewsModal(false)} className="text-slate-400 hover:text-white text-xl p-1">✕</button>
             </div>
 
             {/* TAB 1: EDIT FIELDS FORM */}
             {newsModalTab === "edit" && (
               <form onSubmit={handleSaveNews} className="space-y-5 text-xs">
 
-                {/* Article Title */}
                 <div>
                   <label className="block font-bold text-white uppercase mb-1">Article Headline</label>
                   <input
@@ -1291,7 +1456,6 @@ export default function AdminPage() {
                   />
                 </div>
 
-                {/* Category & Date */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block font-bold text-white uppercase mb-1">Category Sector Tag</label>
@@ -1323,17 +1487,12 @@ export default function AdminPage() {
                     Cover Image (URL or Drag &amp; Drop File Upload)
                   </label>
 
-                  {/* Drag & Drop Box */}
                   <div
                     onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => {
                       e.preventDefault();
                       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
                         const file = e.dataTransfer.files[0];
-                        if (!file.type.startsWith("image/")) {
-                          alert("Please drop an image file (JPG, PNG, WEBP)");
-                          return;
-                        }
                         const reader = new FileReader();
                         reader.onload = (ev) => {
                           if (ev.target?.result) {
@@ -1366,13 +1525,11 @@ export default function AdminPage() {
                     <label htmlFor="news-image-upload" className="cursor-pointer flex flex-col items-center gap-2">
                       <UploadCloud className="w-7 h-7 text-[#EAA500] group-hover:scale-110 transition-transform" />
                       <span className="text-xs font-bold text-slate-200">
-                        Drag &amp; drop an image here, or <span className="text-[#EAA500] underline">browse file</span>
+                        Drag &amp; drop image here, or <span className="text-[#EAA500] underline">browse file</span>
                       </span>
-                      <span className="text-[10px] text-slate-400">Supports PNG, JPG, WEBP, GIF (Saved as Data URL)</span>
                     </label>
                   </div>
 
-                  {/* Or Paste Direct Image URL */}
                   <div className="flex items-center gap-3 pt-1">
                     <div className="w-16 h-12 rounded-lg overflow-hidden border border-slate-700 bg-slate-900 shrink-0 relative">
                       {editingNews.image ? (
@@ -1386,7 +1543,7 @@ export default function AdminPage() {
                     </div>
                     <input
                       type="text"
-                      placeholder="Or paste direct image URL (https://images.unsplash.com/...)"
+                      placeholder="Or paste direct image URL (https://...)"
                       value={editingNews.image || ""}
                       onChange={(e) => setEditingNews({ ...editingNews, image: e.target.value })}
                       className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-[#EAA500]"
@@ -1394,7 +1551,6 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* Excerpt Summary */}
                 <div>
                   <label className="block font-bold text-white uppercase mb-1">Card Excerpt Summary</label>
                   <textarea
@@ -1407,9 +1563,8 @@ export default function AdminPage() {
                   />
                 </div>
 
-                {/* Full Article Content */}
                 <div>
-                  <label className="block font-bold text-white uppercase mb-1">Full Article Paragraphs (One per line)</label>
+                  <label className="block font-bold text-white uppercase mb-1">Full Article Paragraphs</label>
                   <textarea
                     rows={4}
                     required
@@ -1420,45 +1575,43 @@ export default function AdminPage() {
                   />
                 </div>
 
-                {/* Form Buttons */}
-                <div className="flex items-center justify-between pt-3 border-t border-slate-800">
+                <div className="flex items-center justify-between pt-3 border-t border-slate-800 gap-3">
                   <button
                     type="button"
                     onClick={() => setNewsModalTab("preview")}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#EAA500] font-bold text-xs flex items-center gap-1.5"
+                    className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#EAA500] font-bold text-xs flex items-center gap-1.5 min-h-[40px]"
                   >
                     <Eye className="w-4 h-4" />
-                    <span>Preview Article First</span>
+                    <span>Preview</span>
                   </button>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <button
                       type="button"
                       onClick={() => setShowNewsModal(false)}
-                      className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold"
+                      className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold min-h-[40px]"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold uppercase tracking-wider shadow-lg"
+                      className="px-5 py-2.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold uppercase tracking-wider shadow-lg min-h-[40px]"
                     >
-                      Publish Press Article
+                      Publish
                     </button>
                   </div>
                 </div>
               </form>
             )}
 
-            {/* TAB 2: LIVE PIXEL-PERFECT CARD PREVIEW */}
+            {/* TAB 2: LIVE PREVIEW */}
             {newsModalTab === "preview" && (
               <div className="space-y-6">
                 <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 shrink-0" />
-                  <span>Live Preview Mode: This is an exact preview of how your article will look in public news listings.</span>
+                  <span>Live Preview Mode: Exact preview of public article card.</span>
                 </div>
 
-                {/* Live News Card */}
                 <div className="flex flex-col bg-white rounded-xl overflow-hidden border border-slate-200 shadow-xl max-w-sm mx-auto text-left text-slate-900">
                   <div className="relative h-48 overflow-hidden bg-slate-100">
                     <div
@@ -1478,23 +1631,22 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* Commit Action Buttons */}
                 <div className="flex items-center justify-between pt-4 border-t border-slate-800">
                   <button
                     type="button"
                     onClick={() => setNewsModalTab("edit")}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs"
+                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs min-h-[40px]"
                   >
-                    ← Back to Edit Fields
+                    ← Back
                   </button>
 
                   <button
                     type="button"
                     onClick={handleSaveNews}
-                    className="px-8 py-3 rounded-lg bg-[#008E48] hover:bg-[#00773d] text-white font-black text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                    className="px-6 py-2.5 rounded-lg bg-[#008E48] hover:bg-[#00773d] text-white font-black text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2 min-h-[40px]"
                   >
                     <CheckCircle className="w-4 h-4" />
-                    <span>Confirm &amp; Commit Article</span>
+                    <span>Confirm &amp; Commit</span>
                   </button>
                 </div>
               </div>
@@ -1506,35 +1658,35 @@ export default function AdminPage() {
 
       {/* FULL-FEATURED EVENT CREATION & EDIT MODAL WITH LIVE PREVIEW */}
       {showEventModal && editingEvent && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#03142A] border border-slate-800 rounded-2xl max-w-3xl w-full p-6 sm:p-8 space-y-6 text-left shadow-2xl my-8">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          <div className="bg-[#03142A] border border-slate-800 rounded-2xl max-w-3xl w-full p-4 sm:p-8 space-y-6 text-left shadow-2xl my-auto max-h-[90vh] overflow-y-auto">
 
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-              <div className="flex items-center gap-4">
-                <h3 className="text-lg font-black uppercase text-white">
-                  {editingEvent.id ? "Edit Trade Event CMS Listing" : "Create New Trade Event"}
+              <div className="flex items-center gap-3">
+                <h3 className="text-sm sm:text-lg font-black uppercase text-white leading-tight">
+                  {editingEvent.id ? "Edit Trade Event" : "Create Trade Event"}
                 </h3>
 
                 <div className="flex items-center bg-slate-900 p-1 rounded-lg border border-slate-700">
                   <button
                     onClick={() => setEventModalTab("edit")}
-                    className={`px-3 py-1 rounded text-xs font-bold transition-all ${eventModalTab === "edit" ? "bg-[#0A4D8C] text-white shadow" : "text-slate-400 hover:text-white"
+                    className={`px-2.5 py-1 rounded text-xs font-bold transition-all ${eventModalTab === "edit" ? "bg-[#0A4D8C] text-white shadow" : "text-slate-400 hover:text-white"
                       }`}
                   >
-                    Edit Fields
+                    Edit
                   </button>
                   <button
                     onClick={() => setEventModalTab("preview")}
-                    className={`px-3 py-1 rounded text-xs font-bold transition-all flex items-center gap-1.5 ${eventModalTab === "preview" ? "bg-[#EAA500] text-[#03142A] shadow" : "text-slate-400 hover:text-white"
+                    className={`px-2.5 py-1 rounded text-xs font-bold transition-all flex items-center gap-1 ${eventModalTab === "preview" ? "bg-[#EAA500] text-[#03142A] shadow" : "text-slate-400 hover:text-white"
                       }`}
                   >
                     <Eye className="w-3.5 h-3.5" />
-                    <span>Live Preview</span>
+                    <span>Preview</span>
                   </button>
                 </div>
               </div>
 
-              <button onClick={() => setShowEventModal(false)} className="text-slate-400 hover:text-white text-lg">✕</button>
+              <button onClick={() => setShowEventModal(false)} className="text-slate-400 hover:text-white text-xl p-1">✕</button>
             </div>
 
             {eventModalTab === "edit" && (
@@ -1582,17 +1734,12 @@ export default function AdminPage() {
                     Cover Image (URL or Drag &amp; Drop File Upload)
                   </label>
 
-                  {/* Drag & Drop Box */}
                   <div
                     onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => {
                       e.preventDefault();
                       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
                         const file = e.dataTransfer.files[0];
-                        if (!file.type.startsWith("image/")) {
-                          alert("Please drop an image file (JPG, PNG, WEBP)");
-                          return;
-                        }
                         const reader = new FileReader();
                         reader.onload = (ev) => {
                           if (ev.target?.result) {
@@ -1625,13 +1772,11 @@ export default function AdminPage() {
                     <label htmlFor="event-image-upload" className="cursor-pointer flex flex-col items-center gap-2">
                       <UploadCloud className="w-7 h-7 text-[#EAA500] group-hover:scale-110 transition-transform" />
                       <span className="text-xs font-bold text-slate-200">
-                        Drag &amp; drop an image here, or <span className="text-[#EAA500] underline">browse file</span>
+                        Drag &amp; drop image here, or <span className="text-[#EAA500] underline">browse file</span>
                       </span>
-                      <span className="text-[10px] text-slate-400">Supports PNG, JPG, WEBP, GIF (Saved as Data URL)</span>
                     </label>
                   </div>
 
-                  {/* Or Paste Direct Image URL */}
                   <div className="flex items-center gap-3 pt-1">
                     <div className="w-16 h-12 rounded-lg overflow-hidden border border-slate-700 bg-slate-900 shrink-0 relative">
                       {editingEvent.image ? (
@@ -1645,7 +1790,7 @@ export default function AdminPage() {
                     </div>
                     <input
                       type="text"
-                      placeholder="Or paste direct image URL (https://images.unsplash.com/...)"
+                      placeholder="Or paste direct image URL (https://...)"
                       value={editingEvent.image || ""}
                       onChange={(e) => setEditingEvent({ ...editingEvent, image: e.target.value })}
                       className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-[#EAA500]"
@@ -1664,29 +1809,29 @@ export default function AdminPage() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-slate-800">
+                <div className="flex items-center justify-between pt-3 border-t border-slate-800 gap-3">
                   <button
                     type="button"
                     onClick={() => setEventModalTab("preview")}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#EAA500] font-bold text-xs flex items-center gap-1.5"
+                    className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#EAA500] font-bold text-xs flex items-center gap-1.5 min-h-[40px]"
                   >
                     <Eye className="w-4 h-4" />
-                    <span>Preview Card First</span>
+                    <span>Preview</span>
                   </button>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <button
                       type="button"
                       onClick={() => setShowEventModal(false)}
-                      className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold"
+                      className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold min-h-[40px]"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold uppercase tracking-wider shadow-lg"
+                      className="px-5 py-2.5 rounded-lg bg-[#0A4D8C] hover:bg-[#083e73] text-white font-extrabold uppercase tracking-wider shadow-lg min-h-[40px]"
                     >
-                      Publish Event
+                      Publish
                     </button>
                   </div>
                 </div>
@@ -1697,7 +1842,7 @@ export default function AdminPage() {
               <div className="space-y-6">
                 <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 shrink-0" />
-                  <span>Live Preview Mode: This is an exact preview of how your event will look to visitors.</span>
+                  <span>Live Preview Mode: Exact preview of public event card.</span>
                 </div>
 
                 <div className="group relative rounded-xl overflow-hidden shadow-xl border border-slate-700 bg-[#03142A] min-h-[340px] flex flex-col justify-end text-left max-w-md mx-auto">
@@ -1734,18 +1879,18 @@ export default function AdminPage() {
                   <button
                     type="button"
                     onClick={() => setEventModalTab("edit")}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs"
+                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs min-h-[40px]"
                   >
-                    ← Back to Edit Fields
+                    ← Back
                   </button>
 
                   <button
                     type="button"
                     onClick={handleSaveEvent}
-                    className="px-8 py-3 rounded-lg bg-[#008E48] hover:bg-[#00773d] text-white font-black text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                    className="px-6 py-2.5 rounded-lg bg-[#008E48] hover:bg-[#00773d] text-white font-black text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2 min-h-[40px]"
                   >
                     <CheckCircle className="w-4 h-4" />
-                    <span>Confirm &amp; Commit Event</span>
+                    <span>Confirm &amp; Commit</span>
                   </button>
                 </div>
               </div>

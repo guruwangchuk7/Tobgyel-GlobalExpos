@@ -113,6 +113,33 @@ export interface RegulationsCMS {
   }>;
 }
 
+export interface WhyExhibitCMS {
+  title: string;
+  subtitle?: string;
+  ctaText: string;
+  points: Array<{ title: string; description?: string }>;
+}
+
+export interface ParticipantsCMS {
+  title: string;
+  subtitle?: string;
+  links: Array<{ title: string; href?: string }>;
+}
+
+export interface VisitCMS {
+  title: string;
+  subtitle?: string;
+  ctaText: string;
+  cards: Array<{ title: string; description?: string }>;
+}
+
+export interface PartnersCMS {
+  title: string;
+  subtitle?: string;
+  ctaText: string;
+  partners: Array<{ name: string; category: string }>;
+}
+
 const CMS_KEYS = {
   EVENTS: "tobgyel_cms_events",
   NEWS: "tobgyel_cms_news",
@@ -122,6 +149,56 @@ const CMS_KEYS = {
   ABOUT: "tobgyel_cms_about",
   CONTACT: "tobgyel_cms_contact",
   REGULATIONS: "tobgyel_cms_regulations",
+  WHY_EXHIBIT: "tobgyel_cms_why_exhibit",
+  PARTICIPANTS: "tobgyel_cms_participants",
+  VISIT: "tobgyel_cms_visit",
+};
+
+export const INITIAL_WHY_EXHIBIT: WhyExhibitCMS = {
+  title: "WHY EXHIBIT?",
+  ctaText: "Learn More",
+  points: [
+    { title: "Meet qualified buyers" },
+    { title: "Expand into Bhutan" },
+    { title: "Connect with regional partners" },
+    { title: "Increase brand visibility" },
+    { title: "Launch products & services" },
+  ],
+};
+
+export const INITIAL_PARTICIPANTS: ParticipantsCMS = {
+  title: "INTERNATIONAL PARTICIPANTS",
+  links: [
+    { title: "Visa & Entry" },
+    { title: "Hotels" },
+    { title: "Logistics" },
+    { title: "Customs" },
+    { title: "Tax Information" },
+    { title: "Participant Guide" },
+  ],
+};
+
+export const INITIAL_VISIT: VisitCMS = {
+  title: "PLAN YOUR VISIT",
+  ctaText: "Visitor Guide",
+  cards: [
+    { title: "Travel Information" },
+    { title: "Accommodation" },
+    { title: "Transportation" },
+    { title: "Weather" },
+    { title: "Useful Contacts" },
+    { title: "Visitor Guide" },
+  ],
+};
+
+export const INITIAL_PARTNERS: PartnersCMS = {
+  title: "OUR PARTNERS & SPONSORS",
+  ctaText: "Become A Sponsor",
+  partners: [
+    { name: "Bhutan Chamber of Commerce & Industry", category: "Institutional Patron" },
+    { name: "Drukair Corporation Ltd.", category: "Aviation Partner" },
+    { name: "Bhutan Telecom Ltd.", category: "Connectivity Partner" },
+  ],
 };
 
 // Initial Seed Data (Pre-populated from hardcoded data so public site never breaks)
@@ -427,4 +504,48 @@ export const getCMSRegulations = (): RegulationsCMS => {
 
 export const saveCMSRegulations = (regulations: RegulationsCMS) => {
   localStorage.setItem(CMS_KEYS.REGULATIONS, JSON.stringify(regulations));
+};
+
+export const getCMSWhyExhibit = (): WhyExhibitCMS => {
+  if (typeof window === "undefined") return INITIAL_WHY_EXHIBIT;
+  const stored = localStorage.getItem(CMS_KEYS.WHY_EXHIBIT);
+  if (!stored) return INITIAL_WHY_EXHIBIT;
+  return JSON.parse(stored);
+};
+
+export const saveCMSWhyExhibit = (config: WhyExhibitCMS) => {
+  localStorage.setItem(CMS_KEYS.WHY_EXHIBIT, JSON.stringify(config));
+};
+
+export const getCMSParticipants = (): ParticipantsCMS => {
+  if (typeof window === "undefined") return INITIAL_PARTICIPANTS;
+  const stored = localStorage.getItem(CMS_KEYS.PARTICIPANTS);
+  if (!stored) return INITIAL_PARTICIPANTS;
+  return JSON.parse(stored);
+};
+
+export const saveCMSParticipants = (config: ParticipantsCMS) => {
+  localStorage.setItem(CMS_KEYS.PARTICIPANTS, JSON.stringify(config));
+};
+
+export const getCMSVisit = (): VisitCMS => {
+  if (typeof window === "undefined") return INITIAL_VISIT;
+  const stored = localStorage.getItem(CMS_KEYS.VISIT);
+  if (!stored) return INITIAL_VISIT;
+  return JSON.parse(stored);
+};
+
+export const saveCMSVisit = (config: VisitCMS) => {
+  localStorage.setItem(CMS_KEYS.VISIT, JSON.stringify(config));
+};
+
+export const getCMSPartners = (): PartnersCMS => {
+  if (typeof window === "undefined") return INITIAL_PARTNERS;
+  const stored = localStorage.getItem(CMS_KEYS.PARTNERS);
+  if (!stored) return INITIAL_PARTNERS;
+  return JSON.parse(stored);
+};
+
+export const saveCMSPartners = (config: PartnersCMS) => {
+  localStorage.setItem(CMS_KEYS.PARTNERS, JSON.stringify(config));
 };
