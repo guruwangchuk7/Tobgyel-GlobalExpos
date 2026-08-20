@@ -8,13 +8,12 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900">
+    <div className="min-h-screen flex flex-col bg-[#03142A] text-white selection:bg-[#EAA500] selection:text-slate-950">
       <Header />
-      
-      <main className="flex-1">
+
+      <main className="flex-1 bg-[#03142A] flex flex-col justify-between">
         <Footer />
       </main>
     </div>
   );
 }
-
